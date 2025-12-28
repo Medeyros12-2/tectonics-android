@@ -1,56 +1,38 @@
 ---
 layout: default
 ---
-
-<h2>ABOUT</h2>
-<p>Tectonics is a 3d plate tectonics simulator written in javascript. It allows you to create realistic fantasy worlds from your web browser. </p>
-<p>Tectonics is a principled model. It aims to use simple yet scientifically defensible models that may be easily understood by nonexperts and modified by developers. A 3D framework is used to provide a solid foundation for modeling that is grounded in reality. Javascript is used so that the model is made available to anyone through a modern web browser.</p>
-<p>The model is open source and licensed under version 2.0 of the Creative Commons <a href="http://creativecommons.org/licenses/by-nc/2.0/">Non Commercial Attribution</a> License.</p>
-
-<h3 style="text-align:center">To see the model for yourself, click <a href="https://medeyros12.github.io/tectonics/">here</a></h3>
-
-<h2>FREQUENTLY ASKED QUESTIONS</h2>
-<details>
-<summary>Why not use fractals?</summary>
-<p>We do, for initialization, but we don't want to rely on them. Fractals generate superficially realistic terrain using processes that radically differ from reality. This allows them to operate many orders of magnitude faster than tectonic simulators, but this comes at a cost. A fractal world has no history - users cannot look at a landscape and say why or how that landscape formed the way it did, at least not in reference to real life processes. An author, for instance, would have a harder time breathing life into a fractal world because such details would have to be tacked on after the fact in a way that loosely conforms to what's already been generated. </p>
-</details>
-<details>
-<summary>Why 3D?</summary>
-<p>2D models go a long ways towards reducing the code needed to express themselves. In a 2D model, grid cells can be represented in 2D arrays, and contents can be moved between them through a series of integer vectors. In a 3D model, decisions such as these are nowhere near as straightforward. Developers must answer basic questions concerning how grid cells are arranged and how cell contents move. The bright side of this scheme, however, is that reality fights on your side. Some planet features for instance form naturally since they're simple products of geometry. Island arcs are perhaps the best example - 2d models based upon similar principles appear to have difficulty forming island chains along anything other than straight lines, but properly shaped arcs form here as emergent behavior.</p>
-        </details>
-<details>
-<summary>Why a Web Browser?</summary>
-<p>Tectonics.js seeks to be accessible to a wide audience of world building enthusiasts. Many aspring storytellers and world building enthusiasts in general like the idea of using models that can form realistic landmasses for their worlds but lack the skill to develop their own. A web application allows just about anyone to type in a site and create their own imaginary worlds.</p>
-<p>Javascript is classically an odd choice for a simulator of any sort. It's a problem most have addressed in the past with faster languages like C or even FORTRAN. However, processing power continues to increase at an exponentiating rate. The speed problem is still tangeable, even today, but steps can be taken against it. The model foremost relies on data-oriented design, typed arrays, memoization, and graphics shaders to cut down processing time, right now. Just using these techniques alone is enough to simulate planets with tens of thousands of grid cells with reasonable framerates. Other techniques such as Web Workers and Web Assembly may be used in the future to cut down runtime even futher. Instantaneous generation is currently out of the question, but you can still generate worlds in the time you'd be willing to sit in front of a computer. On occassion, I've fallen asleep and woke up to find a planet that's several times older than the universe :)</p> 
-<p>If you're, say, writing a novel and want to emphasize the quality of worlds over quantity, then this project is meant for you.</p>
-</details>
-<details>
-<summary>How does it work?</summary>
-<p>The model tracks the age of oceanic crust. </p>
-<img src="images/version2/age.png"></img>
-<p>Age is used to calculate density (since oceanic crust gets dense with age). </p>
-<img src="images/version2/density.png"></img>
-<p>When crust density exceeds a threshold, the crust is marked for subduction. </p>
-<img src="images/version2/subductability.png"></img>
-<p>Velocity lines are calculated so that crust will be drawn towards subducting regions. This is done using vector calculus. </p>
-<img src="images/version2/subductability_smoothed_gradient.png"></img>
-<p>An image segmentation algorithm identifies regions where velocity lines are similar. These regions represent plates in the real world. </p>
-<img src="images/version2/flood_fill8.png"></img>
-<p>The weighted average of the velocity lines become the velocity of the plate.</p>
-<img src="images/version2/average_velocity.png"></img>
-<p>Because plates are drawn towards subducting regions, overlaps will occur in the subducting regions. When subducting crust overlaps, it gets deleted from the model. </p>
-<img src="images/version2/overlaps.png"></img>
-<p>Gaps also form as the crust moves. New crust is created to fill these gaps. This new crust represents a planet's mid ocean ridges. </p>
-<img src="images/version2/gaps.png"></img>
-</details>
-
-<details>
-<summary>Can I build off your model?</summary>
-<p>Yes. Tectonics.js is licensed under version 4.0 of the <a href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution license</a>. This means you are free to share and modify the model in any way you please, the only requirement being that you give credit.</p>
-<p>Tectonics.js is my personal project. I work on it namely because it's a fun way to develop and showcase myself professionally. I write simulation software for a living, so I often find many pleasant intersections between what I do here vs. what I do in the real world. My only hope is people find my project useful or inspiring, and who knows, maybe open up professional opportunities.</p>
-<p>If you do wind up building off the model I'd like to hear it, if only to know someone finds the work useful. Along the same lines, if you feel there's something you'd like to contribute without making your own distribution, give me a pull request - I'll work changes in and make sure your name appears on the credits list.</p>
-</details>
-
-<h2>SUPPORT</h2>
-<p>First, check out the <a href="https://github.com/Medeyros12/tectonics/issues">issue tracker</a> on GitHub. If you don't have a github account or don't feel your question belongs there, <a href="mailto:medeyros12@gmail.com">drop me a line</a> and I'll try to get back to you as soon as I can. Also support the <a href="https://github.com/davidson16807">original developer</a>, if you can.
-</p>
+<h3>CREDITS</h3>
+<dl>
+    <h1>Developer of this fork</h1>
+    <h2><a href="https://github.com/Medeyros12">Medeyros</a></h2>
+    <h1>Original devloper</h1>
+    <h2><a href="http://davidson16807.github.io/">Carl Davidson</a></h2>
+    <dd>Lead developer</dd>
+    <dt><a href="https://github.com/skepickle">skepickle</a></dt>
+    <dt><a href="https://github.com/Estevo-Aleixo/">Estevo-Aleixo</a></dt>
+    <dd>Development work</dd>
+    <dt><a href="https://astrographer.wordpress.com/">astrographer</a></dt>
+    <dt><a href="https://richard-desilvey.info/">redferret</a></dt>
+    <dt><a href="https://www.patreon.com/Gregrox">gregrox</a></dt>
+    <dt><a href="https://www.youtube.com/c/NovaSilisko">novasilisko</a></dt>
+    <dd>Development testing, feedback, and model design</dd>
+    <dt><a href="http://threejs.org/">Three.js</a></dt>
+    <dd>3d graphics engine</dd>
+    <dt><a href="http://simjs.com/download.html">random.js</a></dt>
+    <dd>Probability distribution modeling</dd>
+    <dt><a href="https://vuejs.org/">Vue.js</a></dt>
+    <dt><a href="https://www.chartjs.org/">Chart.js</a></dt>
+    <dt><a href="https://getbootstrap.com/">Bootstrap</a></dt>
+    <dt><a href="http://threejs.org/">jQuery</a></dt>
+    <dd>User interface</dd>
+    <dt><a href="https://qunitjs.com/">qUnit</a></dt>
+    <dd>Unit testing</dd>
+    <dt><a href="https://github.com/google/material-design-icons">Google Material</a></dt>
+    <dt><a href="https://thenounproject.com/">The Noun Project</a></dt>
+    <dt><a href="http://creativecommons.org/">Creative Commons</a></dt>
+    <dd>Assets</dd>
+    <dt><a href="https://github.com/">Github</a></dt>
+    <dd>Hosting</dd>
+    <dt><a href="http://en.wikipedia.org/wiki/SimEarth">SimEarth</a></dt>
+    <dd>Spiritual precedent</dd>
+</dl>
