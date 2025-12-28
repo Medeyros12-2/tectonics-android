@@ -282,45 +282,45 @@
         <div class="long-axis-group slider-label label">
             <div class="btn">
                 <span class="material-symbols-outlined">step_over</span>
-                <div class="vertical-axis-group">
+                <div id="tilt" class="vertical-axis-group">
                     <div>Axial Tilt</div>
                     {{ axial_tilt_degrees }}°
                 </div>
             </div>
             <div>
-                <input type="range" v-model="axial_tilt_degrees" class="is-long-axis-vertical slider-vertical" orient="vertical"
+                <input id="tilt" type="range" v-model="axial_tilt_degrees" class="is-long-axis-vertical slider-vertical" orient="vertical"
                     min="0" max="90" step="0.5">
-                <input type="range" v-model="axial_tilt_degrees" class="is-long-axis-horizontal"
+                <input id="tilt" type="range" v-model="axial_tilt_degrees" class="is-long-axis-horizontal"
                     min="0" max="90" step="0.5">
             </div>
         </div>
         <div class="long-axis-group slider-label label">
             <div class="btn">
                 <span class="material-symbols-outlined">routine</span>
-                <div class="vertical-axis-group">
+                <div id="day-length" class="vertical-axis-group">
                     <div>Day Length</div>
                     {{ format_time(day_length).quantity }}{{ format_time(day_length).unit }}
                 </div>
             </div>
             <div>
-                <input type="range" v-model="log10_day_length" class="is-long-axis-vertical slider-vertical" orient="vertical"
+                <input id="day-length" type="range" v-model="log10_day_length" class="is-long-axis-vertical slider-vertical" orient="vertical"
                     min="4.45" max="7.5" step="0.01">
-                <input type="range" v-model="log10_day_length" class="is-long-axis-horizontal"
+                <input id="day-length" type="range" v-model="log10_day_length" class="is-long-axis-horizontal"
                     min="4.45" max="7.5" step="0.01">
             </div>
         </div>
         <div class="long-axis-group slider-label label">
             <div class="btn">
                 <span class="material-symbols-outlined">orbit</span>
-                <div class="vertical-axis-group">
+                <div id="semi-major" class="vertical-axis-group">
                     <div>Semi-Major Axis</div>
                     {{ semi_major_axis_au }}A.U.
                 </div>
             </div>
             <div>
-                <input type="range" v-model="log10_semi_major_axis" class="is-long-axis-vertical slider-vertical" orient="vertical"
+                <input id="semi-major" type="range" v-model="log10_semi_major_axis" class="is-long-axis-vertical slider-vertical" orient="vertical"
                     min="8.5" max="14.1" step="0.1">
-                <input type="range" v-model="log10_semi_major_axis" class="is-long-axis-horizontal"
+                <input id="semi-major" type="range" v-model="log10_semi_major_axis" class="is-long-axis-horizontal"
                     min="8.5" max="14.1" step="0.1">
             </div>
         </div>
@@ -1120,7 +1120,12 @@
     });
 
     var settingsVue = new Vue({
-      el: '#tune-control', el: '#world-control', el: '#cell-count',
+      el: '#tune-control',
+      el: '#world-control',
+      el: '#cell-count',
+      el: '#semi-major',
+      el: '#day-length',
+      el: '#tilt',
       data: {
         supercontinentBreakup : 1,
         seed                  : '',
