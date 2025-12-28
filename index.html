@@ -113,12 +113,9 @@
             <span id='age-display' class="oui-text">{{ format_count(elapsed_time).quantity }}</span>
             <span id='age-units-display' class="oui-text">{{ format_count(elapsed_time).unit }}y</span>
         </div>
-        <div class="oui-float_nav horizontal-nav reverse">
-            <span class="oui-nav_btn material-symbols-outlined" v-on:click="togglePause()" v-if="paused">
-                play_arrow
-            </span>
-            <span class="oui-nav_btn material-symbols-outlined" v-on:click="togglePause()" v-if="!paused">
-                pause
+        <div class="oui-float_nav horizontal-nav">
+            <span id="speed-display" class="oui-text">
+                {{speeds[speed_i].name}}
             </span>
             <span class="oui-nav_btn material-symbols-outlined" v-on:click="slower()">
                 fast_rewind
@@ -126,31 +123,34 @@
             <span class="oui-nav_btn material-symbols-outlined" v-on:click="faster()">
                 fast_forward
             </span>
-            <span id="speed-display" class="oui-text">
-                {{speeds[speed_i].name}}
+            <span class="oui-nav_btn material-symbols-outlined" v-on:click="togglePause()" v-if="paused">
+                play_arrow
+            </span>
+            <span class="oui-nav_btn material-symbols-outlined" v-on:click="togglePause()" v-if="!paused">
+                pause
             </span>
         </div>
     </div>
-    <div class="oui-float_nav vertical-nav reverse" style="margin-left: 10px;">
-        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target=".tune-control, #main-control">
-            tune
-        </button>
-        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target=".world-control, #main-control">
-            globe
-        </button>
-        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#view-control, #main-control">
-            visibility
+    <div class="oui-float_nav vertical-nav" style="margin-left: 10px;">
+        <button type="button" class="oui-nav_btn material-symbols-outlined" onClick="window.location.reload();">
+            refresh
         </button>
         <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#file-control, #main-control">
             folder
         </button>
-        <button type="button" class="oui-nav_btn material-symbols-outlined" onClick="window.location.reload();">
-            refresh
+        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#view-control, #main-control">
+            visibility
+        </button>
+        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target=".world-control, #main-control">
+            globe
+        </button>
+        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target=".tune-control, #main-control">
+            tune
         </button>
     </div>
 </div>
 
-<div id="file-control" class="collapse control oui-float_control reverse" style="margin: 10px;">
+<div id="file-control" class="collapse control oui-float_control" style="margin: 10px;">
     <div class="short-axis-group">
         <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#file-control, #main-control">
             arrow_downward
@@ -192,7 +192,7 @@
     </div>
 </div>
 
- <div id="view-control" class="short-axis-group collapse control oui-float_control reverse" style="margin: 10px;">
+ <div id="view-control" class="short-axis-group collapse control oui-float_control" style="margin: 10px;">
     <!-- RETURN -->
     <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#view-control, #main-control">
         arrow_downward
@@ -233,7 +233,7 @@
     </button>
 </div>
 
-<div id="tune-control" class="tune-control collapse control oui-float_control reverse" style="margin: 10px;">
+<div id="tune-control" class="tune-control collapse control oui-float_control" style="margin: 10px;">
     <div class="short-axis-group">
         <div class="vertical-axis-group">
             <div class="horizontal-axis-group">
@@ -274,7 +274,7 @@
     </div>
 </div>
 
-<div id="world-control" class="world-control collapse control oui-float_control reverse" style="margin: 10px;">
+<div id="world-control" class="world-control collapse control oui-float_control" style="margin: 10px;">
     <div class="short-axis-group">
         <button type="button" class="oui-nav_btn material-symbols-outlined world-control" data-toggle="collapse" data-target="#main-control, .world-control">
             arrow_downward
