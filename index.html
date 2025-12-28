@@ -506,7 +506,7 @@
 
         sim = new Simulation({
             seed:  querystring['seed'] || (new Date).getTime().toString(),
-            speed: 3.1*Units.DAY,
+            speed: 3*Units.MEGAYEAR,
         });  
 
         var star_name_corpus = NameGenerator.tokenize_corpus(NameCorpii.arabic_star_names);
@@ -875,21 +875,25 @@
       el: '#main-control',
       data: {
             paused: true,
-            speed_i: 12,
+            speed_i: 14,
             speeds: [
-                {    name:'1s/s',      scale: 1,               },
-                {    name:'1m/s',      scale: 60,              },
-                {    name:'1hr/s',     scale: 60*60,           },
-                {    name:'1dy/s',     scale: 1  *Units.DAY    },
-                {    name:'1wk/s',     scale: 7  *Units.DAY    },
-                {    name:'1mo/s',     scale: 31 *Units.DAY    },
-                {    name:'1y/s',      scale: 1  *Units.YEAR,  },
-                {    name:'10y/s',     scale: 10 *Units.YEAR,  },
-                {    name:'100y/s',    scale: 100*Units.YEAR,  },
-                {    name:'1ky/s',     scale: 1e3*Units.YEAR,  },
-                {    name:'10ky/s',    scale: 1e4*Units.YEAR,  },
-                {    name:'100ky/s',   scale: 1e5*Units.YEAR,  },
-                {    name:'1My/s',     scale: 1e6*Units.YEAR,  },
+                {    name:'1s/s',      scale: 1,                   },
+                {    name:'1m/s',      scale: 60,                  },
+                {    name:'1hr/s',     scale: 60*60,               },
+                {    name:'1dy/s',     scale: 1  *Units.DAY        },
+                {    name:'1wk/s',     scale: 7  *Units.DAY        },
+                {    name:'1mo/s',     scale: 31 *Units.DAY        },
+                {    name:'1y/s',      scale: 1  *Units.YEAR,      },
+                {    name:'10y/s',     scale: 10 *Units.YEAR,      },
+                {    name:'100y/s',    scale: 100*Units.YEAR,      },
+                {    name:'1ky/s',     scale: 1e3*Units.YEAR,      },
+                {    name:'10ky/s',    scale: 1e4*Units.YEAR,      },
+                {    name:'100ky/s',   scale: 1e5*Units.YEAR,      },
+                {    name:'1My/s',     scale: 1  *Units.MEGAYEAR,  },
+                {    name:'2My/s',     scale: 2  *Units.MEGAYEAR,  },
+                {    name:'3My/s',     scale: 3  *Units.MEGAYEAR,  },
+                {    name:'4My/s',     scale: 4  *Units.MEGAYEAR,  },
+                {    name:'5My/s',     scale: 5  *Units.MEGAYEAR,  },
             ],
             elapsed_time: 0,
             isSeasonVisible: true,
@@ -1391,7 +1395,7 @@
     // HACK: not sure why, but initializing speed at 1m/s will cause 
     //  display to break when user increases speed past 1wk/s.
     // We set speed to 1m/s here to work around this.
-    timeMenuVue.speed(12)
+    timeMenuVue.speed(14)
 
     // once everything is loaded, instruct the user how to start
     dialogVue.notify("click ▶ or press > to begin")
