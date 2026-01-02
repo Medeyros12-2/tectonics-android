@@ -57,6 +57,52 @@ This means placing it in the bottom right, as far away from our branding as poss
 In landscape orientations, it will expand from bottom right to top right.
 In portrait orientations, it will expand from bottom right to bottom left. 
 */
+.control-material{
+    /* max height should not cause world to become obstructed */
+    max-height: 23.6%;
+    overflow-y: hidden;
+
+    /* max width on mobile */
+    max-width : 100%;
+    overflow-x: auto;
+    
+    position  : fixed;
+    bottom    : 0;
+    right     : 0;
+}
+@media (pointer: fine), (pointer: none), (orientation: landscape) {
+    .control-material {
+        /* 
+        To prevent obstructing the view of the planet, 
+        the content width should resize as necessary. 
+        */
+        max-width   : auto;
+        overflow-x  : hidden;
+    }
+}
+@media (orientation: landscape) {
+    .control-material {
+        /* 
+        Because we do not wrap content, we run the risk of content running off the screen. 
+        To prevent this, we set the height to not exceed the height of the window. 
+        If necessary, the user may scroll vertically through the content. 
+        */
+        max-height  : 100%;
+        overflow-y  : auto;
+    }
+}
+@media (pointer: fine), (pointer: none) {
+    .control-material {
+        /* 
+        If the user is on a desktop, they can resize the screen as needed
+        */
+        height      : auto;
+        max-height  : 100%;
+        overflow-y  : auto;
+    }
+}
+
+
 .control {
     /* bottom right corner */
     position  : fixed;

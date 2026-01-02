@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/main.css"/>
     <link rel="stylesheet" href="styles/app.css"/>
-    <link rel="stylesheet" href="https://medeyros12.github.io/OneCSS/oui_light.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/beercss@3.13.1/dist/cdn/beer.min.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.13.1/dist/cdn/beer.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.2/dist/cdn/material-dynamic-colors.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://medeyros12.github.io/OneCSS/oui_light.css"/> -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz@30" rel="stylesheet"/>
 
     <script src="libraries/vue.js"></script>
@@ -93,7 +96,7 @@
 
     <link rel="manifest" href="manifest.json" />
 </head>
-<body>
+<body class="right-align bottom-align">
 <!-- three.js container -->
 <div id="container"></div>
 <!-- logo -->
@@ -107,85 +110,89 @@
     </div>
 </div>
 <!-- info on screen display -->
-<div id="main-control" class="show collapse control oui-position_right">
-    <div class="vertical-axis-group" style="margin: 6px 10px 10px 10px; gap: 6px;">
-        <div class="horizontal-axis-group oui-textbox">
+<div id="main-control" class="bottom-align right-align control-material" style="gap: 8px; padding: 16px;">
+    <div class="vertical-axis-group" style="gap: 8px;">
+        <nav class="toolbar small-elevate" style="justify-content: space-between; margin: 0px;">
             <span id='age-display' class="oui-text">{{ format_count(elapsed_time).quantity }}</span>
             <span id='age-units-display' class="oui-text">{{ format_count(elapsed_time).unit }}y</span>
-        </div>
-        <div class="oui-float_nav horizontal-nav">
-            <span id="speed-display" class="oui-text">
-                {{speeds[speed_i].name}}
-            </span>
-            <span class="oui-nav_btn material-symbols-outlined" v-on:click="slower()">
-                fast_rewind
-            </span>
-            <span class="oui-nav_btn material-symbols-outlined" v-on:click="faster()">
-                fast_forward
-            </span>
-            <span class="oui-nav_btn material-symbols-outlined" v-on:click="togglePause()" v-if="paused">
-                play_arrow
-            </span>
-            <span class="oui-nav_btn material-symbols-outlined" v-on:click="togglePause()" v-if="!paused">
-                pause
-            </span>
-        </div>
+        </nav>
+        <nav class="center-align tiny-space" style="margin: 0px;">
+            <nav class="toolbar small-elevate">
+                <span id="speed-display" class="oui-text">
+                    {{speeds[speed_i].name}}
+                </span>
+                <a class="material-symbols-outlined" v-on:click="slower()">
+                    fast_rewind
+                </a>
+                <a class="material-symbols-outlined" v-on:click="faster()">
+                    fast_forward
+                </a>
+            </nav>
+            <button class="extra round circle error">
+                <a class="material-symbols-outlined" v-on:click="togglePause()" v-if="paused">
+                    play_arrow
+                </a>
+                <a class="material-symbols-outlined" v-on:click="togglePause()" v-if="!paused">
+                    pause
+                </a>
+            </button>
+        </nav>
     </div>
-    <div class="oui-float_nav vertical-nav" style="margin-right: 10px;">
-        <button type="button" class="oui-nav_btn material-symbols-outlined" onClick="window.location.reload();">
+    <nav class="toolbar vertical small-elevate">
+        <a type="button" class="material-symbols-outlined" onClick="window.location.reload();">
             refresh
-        </button>
-        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#file-control, #main-control">
+        </a>
+        <a type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#file-control, #main-control">
             folder
-        </button>
-        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#view-control, #main-control">
+        </a>
+        <a type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#view-control, #main-control">
             visibility
-        </button>
-        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target=".world-control, #main-control">
+        </a>
+        <a type="button" class="material-symbols-outlined" data-toggle="collapse" data-target=".world-control, #main-control">
             globe
-        </button>
-        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target=".tune-control, #main-control">
+        </a>
+        <a type="button" class="material-symbols-outlined" data-toggle="collapse" data-target=".tune-control, #main-control">
             tune
-        </button>
+        </a>
     </div>
 </div>
 
 <div id="file-control" class="collapse control oui-float_control" style="margin: 10px;">
     <div class="short-axis-group">
-        <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#file-control, #main-control">
+        <button type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#file-control, #main-control">
             arrow_downward
         </button>
-        <button id="screenshot" v-if="isEnabled" type="button" class="oui-nav_btn material-symbols-outlined" v-on:click="capture" v-on:keyup.p="capture">
+        <button id="screenshot" v-if="isEnabled" type="button" class="material-symbols-outlined" v-on:click="capture" v-on:keyup.p="capture">
             screenshot_frame_2
         </button>
         <div id="export" class="short-axis-group">
-            <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#export-menu" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#export-menu" aria-haspopup="true" aria-expanded="false">
                 upload
             </button>
             <div id="export-menu" class="collapse">
-                <button type="button" class="oui-nav_btn material-symbols-outlined" v-on:click="csv">
+                <button type="button" class="material-symbols-outlined" v-on:click="csv">
                     csv
                 </button>
             </div>
         </div>
         <div id="import" class="short-axis-group">
-            <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#import-menu" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#import-menu" aria-haspopup="true" aria-expanded="false">
                 upload_file
             </button>
             <div id="import-menu" class="collapse">
-                <button type="button" class="oui-nav_btn material-symbols-outlined" v-on:click="loadImage()">
+                <button type="button" class="material-symbols-outlined" v-on:click="loadImage()">
                     altitude
                     <span class="instructions">drag</span>
                     <input id="load-image" ref="loadImage" type="file" v-on:change="loadImagePart2($event.target.files[0])" class="hidden" />
                 </button>
             </div>
         </div>
-        <button id="load" type="button" class="oui-nav_btn material-symbols-outlined load" v-on:click="load()">
+        <button id="load" type="button" class="material-symbols-outlined load" v-on:click="load()">
             publish
             <span class="instructions">drag</span>
             <input id="load-input" ref="loadInput" type="file" v-on:change="loadPart2($event.target.files[0])" class="hidden" />
         </button>
-        <button id="save" type="button" class="oui-nav_btn material-symbols-outlined"  v-on:click="save">
+        <button id="save" type="button" class="material-symbols-outlined"  v-on:click="save">
             download
             <span class="instructions">s</span>
         </button>
@@ -194,41 +201,41 @@
 
  <div id="view-control" class="short-axis-group collapse control oui-float_control" style="margin: 10px;">
     <!-- RETURN -->
-    <button type="button" class="oui-nav_btn material-symbols-outlined" data-toggle="collapse" data-target="#view-control, #main-control">
+    <button type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#view-control, #main-control">
         arrow_downward
     </button>
     <!-- FULLSCREEN -->
-    <button id="fullscreen" v-if="isFullscreenVisible" type="button" class="oui-nav_btn fullscreen" data-toggle="button" aria-pressed="true" v-on:click="toggleFullscreen()">
+    <button id="fullscreen" v-if="isFullscreenVisible" type="button" class="fullscreen" data-toggle="button" aria-pressed="true" v-on:click="toggleFullscreen()">
         <span v-if="!isFullscreen" class="material-symbols-outlined">fullscreen</span>
         <span v-if="isFullscreen" class="material-symbols-outlined">fullscreen_exit</span>
         <span class="instructions">F11</span>
     </button>
     <!-- SCALAR OPTIONS -->
-    <button type="button" class="oui-nav_btn material-symbols-outlined" v-bind:class="{'btn-secondary': ocean}" v-on:click="setOcean(!ocean? 1:0)">
+    <button type="button" class="material-symbols-outlined" v-bind:class="{'btn-secondary': ocean}" v-on:click="setOcean(!ocean? 1:0)">
         water_drop
     </button>
-    <button type="button" class="oui-nav_btn material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': night}" v-on:click="setShadows(!night? 1:0)">
+    <button type="button" class="material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': night}" v-on:click="setShadows(!night? 1:0)">
         partly_cloudy_night
     </button>
-    <button type="button" class="oui-nav_btn material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': snow}" v-on:click="setSnow(!snow? 1:0)">
+    <button type="button" class="material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': snow}" v-on:click="setSnow(!snow? 1:0)">
         ac_unit
     </button>
-    <button type="button" class="oui-nav_btn material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': sediment}" v-on:click="setSediment(!sediment? 1:0)">
+    <button type="button" class="material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': sediment}" v-on:click="setSediment(!sediment? 1:0)">
         snowing
     </button>
-    <button type="button" class="oui-nav_btn material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': plant}" v-on:click="setPlant(!plant? 1:0)">
+    <button type="button" class="material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': plant}" v-on:click="setPlant(!plant? 1:0)">
         nature
     </button>
-    <button type="button" class="oui-nav_btn material-symbols-outlined" v-for="option in scalarViewOptions" v-bind:class="getClass(option.value, scalarViewSelected)" v-bind:data-value="option.value" v-on:click="setScalarViewSelected(option.value)">
+    <button type="button" class="material-symbols-outlined" v-for="option in scalarViewOptions" v-bind:class="getClass(option.value, scalarViewSelected)" v-bind:data-value="option.value" v-on:click="setScalarViewSelected(option.value)">
         {{option.icon}}
     </button>
     <!-- VECTOR OPTIONS -->
-    <button type="button" class="oui-nav_btn material-symbols-outlined" v-for="option in vectorViewOptions" v-bind:title="option.tip" v-bind:class="getClass(option.value, vectorViewSelected)" v-bind:data-value="option.value" v-on:click="setVectorViewSelected(option.value)">
+    <button type="button" class="material-symbols-outlined" v-for="option in vectorViewOptions" v-bind:title="option.tip" v-bind:class="getClass(option.value, vectorViewSelected)" v-bind:data-value="option.value" v-on:click="setVectorViewSelected(option.value)">
         {{option.icon}}
     </button>
 
     <!-- PROJECTION OPTIONS -->
-    <button type="button" class="oui-nav_btn material-symbols-outlined" v-for="option in projectionOptions" v-bind:class="getClass(option.value, projectionSelected)" v-bind:data-value="option.value" v-on:click="setProjectionSelected(option.value)">
+    <button type="button" class="material-symbols-outlined" v-for="option in projectionOptions" v-bind:class="getClass(option.value, projectionSelected)" v-bind:data-value="option.value" v-on:click="setProjectionSelected(option.value)">
         {{option.icon}}
     </button>
 </div>
@@ -240,18 +247,18 @@
                 <input id="seed" v-model="seed" class="oui-textbox"></input>
             </div>
             <div class="horizontal-axis-group">
-                <button type="button" class="oui-nav_btn material-symbols-outlined" v-on:click="randomizeCrust">
+                <button type="button" class="material-symbols-outlined" v-on:click="randomizeCrust">
                     casino
                 </button>
-                <button type="button" class="oui-nav_btn material-symbols-outlined" v-on:click="copySeed">
+                <button type="button" class="material-symbols-outlined" v-on:click="copySeed">
                     content_copy
                 </button>
             </div>
             <div class="horizontal-axis-group">
-                <button type="button" class="oui-nav_btn material-symbols-outlined" v-bind:class="{'btn-secondary': supercontinentBreakup}" v-on:click="setSupercontinentBreakup(!supercontinentBreakup? 1:0)">
+                <button type="button" class="material-symbols-outlined" v-bind:class="{'btn-secondary': supercontinentBreakup}" v-on:click="setSupercontinentBreakup(!supercontinentBreakup? 1:0)">
                     broken_image
                 </button>
-                <button type="button" class="oui-nav_btn material-symbols-outlined tune-control" data-toggle="collapse" data-target="#main-control, .tune-control">
+                <button type="button" class="material-symbols-outlined tune-control" data-toggle="collapse" data-target="#main-control, .tune-control">
                     arrow_downward
                 </button>
             </div>
@@ -276,7 +283,7 @@
 
 <div id="world-control" class="world-control collapse control oui-float_control" style="margin: 10px;">
     <div class="short-axis-group">
-        <button type="button" class="oui-nav_btn material-symbols-outlined world-control" data-toggle="collapse" data-target="#main-control, .world-control">
+        <button type="button" class="material-symbols-outlined world-control" data-toggle="collapse" data-target="#main-control, .world-control">
             arrow_downward
         </button>
         <div class="long-axis-group slider-label label">
