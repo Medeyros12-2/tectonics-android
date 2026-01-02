@@ -157,7 +157,7 @@
     </div>
 </div>
 
-<div id="file-control" class="collapse control oui-float_control" style="margin: 10px;">
+<article id="file-control" class="collapse control oui-float_control" style="margin: 10px;">
     <div class="short-axis-group">
         <button type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#file-control, #main-control">
             arrow_downward
@@ -197,9 +197,9 @@
             <span class="instructions">s</span>
         </button>
     </div>
-</div>
+</article>
 
- <div id="view-control" class="short-axis-group collapse control oui-float_control" style="margin: 10px;">
+ <article id="view-control" class="short-axis-group collapse control oui-float_control" style="margin: 10px;">
     <!-- RETURN -->
     <button type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#view-control, #main-control">
         arrow_downward
@@ -238,9 +238,9 @@
     <button type="button" class="material-symbols-outlined" v-for="option in projectionOptions" v-bind:class="getClass(option.value, projectionSelected)" v-bind:data-value="option.value" v-on:click="setProjectionSelected(option.value)">
         {{option.icon}}
     </button>
-</div>
+</article>
 
-<div id="tune-control" class="tune-control collapse control oui-float_control" style="margin: 10px;">
+<article id="tune-control" class="tune-control collapse control oui-float_control" style="margin: 10px;">
     <div class="short-axis-group">
         <div class="vertical-axis-group">
             <div class="horizontal-axis-group">
@@ -279,9 +279,9 @@
             </div>
         </div>
     </div>
-</div>
+</article>
 
-<div id="world-control" class="world-control collapse control oui-float_control" style="margin: 10px;">
+<article id="world-control" class="world-control collapse control oui-float_control" style="margin: 10px;">
     <div class="short-axis-group">
         <button type="button" class="material-symbols-outlined world-control" data-toggle="collapse" data-target="#main-control, .world-control">
             arrow_downward
@@ -332,7 +332,7 @@
             </div>
         </div>
     </div>
-</div>
+</article>
 
 <a id="hidden-downloader" href="dataUrl" download="filename"></a>
 
