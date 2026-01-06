@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="styles/app.css"/>
     <!-- <link rel="stylesheet" href="https://medeyros12.github.io/OneCSS/oui_light.css"/> -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz@30" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/beercss@3.13.1/dist/cdn/beer.min.css" rel="stylesheet">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.13.1/dist/cdn/beer.min.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.2/dist/cdn/material-dynamic-colors.min.js"></script>
+    <link href="https://medeyros12.github.io/cafezincss/dist/cdn/cafezin.links.css" rel="stylesheet">
+    <script type="module" src="https://medeyros12.github.io/cafezincss/dist/cdn/cafezin.min.js"></script>
+    <script type="module" src="https://medeyros12.github.io/cafezincss/dist/cdn/material-dynamic-colors.min.js"></script>
 
     <script src="libraries/vue.js"></script>
     <script src="libraries/Chart.js"></script>
@@ -97,179 +97,187 @@
     <link rel="manifest" href="manifest.json" />
 </head>
 <body class="dark">
-<!-- beer css right nav rail -->
-
-
-<dialog id="file-control" class="right" style="width: min-content;">
-    <button type="button" class="material-symbols-outlined border vertical" data-ui="#file-control">
-        arrow_downward
-    </button>
-    <button id="screenshot" v-if="isEnabled" type="button" class="material-symbols-outlined border vertical" v-on:click="capture" v-on:keyup.p="capture">
-        screenshot_frame_2
+<dialog id="file-control" class="right vertical-axis-group" style="padding: 1rem; gap: 0.5rem; min-block-size: 4rem; min-inline-size: 4rem;">
+    <header>
+        <button data-ui="#file-control">
+            <i>right_panel_close</i>
+        </button>
+    </header>
+    <button class="toolbary vertical small-text" id="screenshot" v-if="isEnabled" v-on:click="capture" v-on:keyup.p="capture">
+        <i>screenshot_frame</i>
+        Screenshot
     </button>
     <div id="export" class="short-axis-group">
-        <button type="button" class="material-symbols-outlined border vertical" data-toggle="collapse" data-target="#export-menu" aria-haspopup="true" aria-expanded="false">
-            upload
+        <button class="toolbary vertical small-text" data-toggle="collapse" data-target="#export-menu" aria-haspopup="true" aria-expanded="false">
+            <i>upload</i>
+            Export
         </button>
         <div id="export-menu" class="collapse">
-            <button type="button" class="material-symbols-outlined border vertical" v-on:click="csv">
-                csv
+            <button class="toolbary vertical small-text" v-on:click="csv">
+                <i>csv</i>
+                CVS
             </button>
         </div>
     </div>
     <div id="import" class="short-axis-group">
-        <button type="button" class="material-symbols-outlined border vertical" data-toggle="collapse" data-target="#import-menu" aria-haspopup="true" aria-expanded="false">
-            upload_file
+        <button class="toolbary vertical small-text" data-toggle="collapse" data-target="#import-menu" aria-haspopup="true" aria-expanded="false">
+            <i>upload_file</i>
+            Import
         </button>
         <div id="import-menu" class="collapse">
-            <button type="button" class="material-symbols-outlined border vertical" v-on:click="loadImage()">
-                altitude
+            <button class="toolbary vertical small-text" v-on:click="loadImage()">
+                <i>altitude</i>
+                Heigh map
                 <span class="instructions">drag</span>
                 <input id="load-image" ref="loadImage" type="file" v-on:change="loadImagePart2($event.target.files[0])" class="hidden" />
             </button>
         </div>
     </div>
-    <button id="load" type="button" class="material-symbols-outlined load border vertical" v-on:click="load()">
-        publish
+    <button id="load" class="load vertical small-text" v-on:click="load()">
+        <i>publish</i>
+        Load
         <span class="instructions">drag</span>
         <input id="load-input" ref="loadInput" type="file" v-on:change="loadPart2($event.target.files[0])" class="hidden" />
     </button>
-    <button id="save" type="button" class="material-symbols-outlined"  v-on:click="save">
-        download
+    <button class="toolbary vertical small-text" id="save"  v-on:click="save">
+        <i>download</i>
+        Save
         <span class="instructions">s</span>
     </button>
 </dialog>
 
- <dialog id="view-control" class="right" style="width: min-content;">
+<dialog id="view-control" class="right vertical-axis-group" style="padding: 1rem; gap: 0.5rem; min-block-size: 4rem; min-inline-size: 4rem;">
     <!-- RETURN -->
-    <button type="button" class="material-symbols-outlined" data-ui="#view-control">
-        arrow_downward
-    </button>
+    <header>
+        <button data-ui="#view-control">
+            <i>right_panel_close</i>
+        </button>
+    </header>
     <!-- FULLSCREEN -->
-    <button id="fullscreen" v-if="isFullscreenVisible" type="button" class="fullscreen" data-toggle="button" aria-pressed="true" v-on:click="toggleFullscreen()">
-        <span v-if="!isFullscreen" class="material-symbols-outlined">fullscreen</span>
-        <span v-if="isFullscreen" class="material-symbols-outlined">fullscreen_exit</span>
+    <button id="fullscreen" v-if="isFullscreenVisible" class="fullscreen vertical small-text" data-toggle="button" aria-pressed="true" v-on:click="toggleFullscreen()">
+        <i v-if="!isFullscreen">fullscreen</i>
+        <i v-if="isFullscreen">fullscreen_exit</i>
+        fullscreen
         <span class="instructions">F11</span>
     </button>
     <!-- SCALAR OPTIONS -->
-    <button type="button" class="material-symbols-outlined" v-bind:class="{'btn-secondary': ocean}" v-on:click="setOcean(!ocean? 1:0)">
-        water_drop
+    <button class="toolbary vertical small-text" v-bind:class="{'active': ocean}" v-on:click="setOcean(!ocean? 1:0)">
+        <i>water_drop</i>
+        Show water
     </button>
-    <button type="button" class="material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': night}" v-on:click="setShadows(!night? 1:0)">
-        partly_cloudy_night
+    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': night}" v-on:click="setShadows(!night? 1:0)">
+        <i>partly_cloudy_night</i>
+        Show shadows
     </button>
-    <button type="button" class="material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': snow}" v-on:click="setSnow(!snow? 1:0)">
-        ac_unit
+    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': snow}" v-on:click="setSnow(!snow? 1:0)">
+        <i>ac_unit</i>
+        Show snow
     </button>
-    <button type="button" class="material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': sediment}" v-on:click="setSediment(!sediment? 1:0)">
-        snowing
+    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': sediment}" v-on:click="setSediment(!sediment? 1:0)">
+        <i>snowing</i>
+        Show sediments
     </button>
-    <button type="button" class="material-symbols-outlined" v-if="isScalarViewSelected('satellite')" v-bind:class="{'btn-secondary': plant}" v-on:click="setPlant(!plant? 1:0)">
-        nature
+    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': plant}" v-on:click="setPlant(!plant? 1:0)">
+        <i>nature</i>
+        Show plants
     </button>
-    <button type="button" class="material-symbols-outlined" v-for="option in scalarViewOptions" v-bind:class="getClass(option.value, scalarViewSelected)" v-bind:data-value="option.value" v-on:click="setScalarViewSelected(option.value)">
-        {{option.icon}}
+    <button class="toolbary vertical small-text" v-for="option in scalarViewOptions" v-bind:class="getClass(option.value, scalarViewSelected)" v-bind:data-value="option.value" v-on:click="setScalarViewSelected(option.value)">
+        <i>{{option.icon}}</i>
+        {{option.name}}
     </button>
     <!-- VECTOR OPTIONS -->
-    <button type="button" class="material-symbols-outlined" v-for="option in vectorViewOptions" v-bind:title="option.tip" v-bind:class="getClass(option.value, vectorViewSelected)" v-bind:data-value="option.value" v-on:click="setVectorViewSelected(option.value)">
-        {{option.icon}}
+    <button class="toolbary vertical small-text" v-for="option in vectorViewOptions" v-bind:title="option.tip" v-bind:class="getClass(option.value, vectorViewSelected)" v-bind:data-value="option.value" v-on:click="setVectorViewSelected(option.value)">
+        <i>{{option.icon}}</i>
+        {{option.name}}
     </button>
 
     <!-- PROJECTION OPTIONS -->
-    <button type="button" class="material-symbols-outlined" v-for="option in projectionOptions" v-bind:class="getClass(option.value, projectionSelected)" v-bind:data-value="option.value" v-on:click="setProjectionSelected(option.value)">
-        {{option.icon}}
+    <button class="toolbary vertical small-text" v-for="option in projectionOptions" v-bind:class="getClass(option.value, projectionSelected)" v-bind:data-value="option.value" v-on:click="setProjectionSelected(option.value)">
+        <i>{{option.icon}}</i>
+        {{option.name}}
     </button>
 </dialog>
 
-<dialog id="tune-control" class="right">
+<dialog id="tune-control" class="vertical-axis-group" style="padding: 1rem; gap: 0.5rem;">
+    <header>
+        <button class="toolbary tune-control" data-ui="#tune-control">
+            <i>right_panel_close</i>
+        </button>
+    </header>
+    <button class="toolbary vertical small-text" v-bind:class="{'active': supercontinentBreakup}" v-on:click="setSupercontinentBreakup(!supercontinentBreakup? 1:0)">
+        <i>broken_image</i>
+        Supercontinent Breakup
+    </button>
     <div class="short-axis-group">
         <div class="vertical-axis-group">
             <div class="field label round fill middle-align left-align">
                 <input id="seed" v-model="seed" class="padding"></input>
             </div>
-            <div class="horizontal-axis-group">
-                <button type="button" class="material-symbols-outlined" v-on:click="randomizeCrust">
-                    casino
-                </button>
-                <button type="button" class="material-symbols-outlined" v-on:click="copySeed">
-                    content_copy
-                </button>
-            </div>
-            <div class="horizontal-axis-group">
-                <button type="button" class="material-symbols-outlined" v-bind:class="{'btn-secondary': supercontinentBreakup}" v-on:click="setSupercontinentBreakup(!supercontinentBreakup? 1:0)">
-                    broken_image
-                </button>
-                <button type="button" class="material-symbols-outlined tune-control" data-ui="#tune-control">
-                    arrow_downward
-                </button>
-            </div>
         </div>
         <div class="long-axis-group slider-label label">
-            <div class="btn">
-                <span class="material-symbols-outlined">grid_on</span>
+            <div class="vertical center-align middle-align">
+                <i>grid_on</i>
                 <div id="cell-count" class="vertical-axis-group oui-text">
-                    <div class="oui-text">Resolution</div>
+                    <span>Resolution</span>
                     {{ format_count(cell_count).quantity }}{{ format_count(cell_count).unit }} cells
                 </div>
             </div>
-            <div>
-                <input type="range" v-model="resolution_level" class="is-long-axis-vertical slider-vertical" orient="vertical"
-                    min="1" max="6" step="1">
-                <input type="range" v-model="resolution_level" class="is-long-axis-horizontal" 
-                    min="1" max="6" step="1">
+            <div class="slider small">
+                <input type="range" v-model="resolution_level" orient="vertical" min="1" max="6" step="1">
+                <input type="range" v-model="resolution_level" min="1" max="6" step="1">
+                <span></span>
             </div>
         </div>
     </div>
 </dialog>
 
-<dialog id="world-control" class="right" style="padding: 1rem; gap: 0.5rem;">
+<dialog id="world-control" class="vertical-axis-group" style="padding: 1rem; gap: 0.5rem;">
     <div class="short-axis-group">
-        <button type="button" class="material-symbols-outlined world-control" data-ui="#world-control">
-            arrow_downward
-        </button>
+        <header>
+            <button class="toolbary world-control" data-ui="#world-control">
+                <i>right_panel_close</i>
+            </button>
+        </header>
         <div class="long-axis-group slider-label label">
-            <div class="btn">
-                <span class="material-symbols-outlined">step_over</span>
+            <div class="vertical center-align middle-align">
+                <i>step_over</i>
                 <div id="tilt" class="vertical-axis-group">
                     <div>Axial Tilt</div>
                     {{ axial_tilt_degrees }}°
                 </div>
             </div>
-            <div>
-                <input id="tilt" type="range" v-model="axial_tilt_degrees" class="is-long-axis-vertical slider-vertical" orient="vertical"
-                    min="0" max="90" step="0.5">
-                <input id="tilt" type="range" v-model="axial_tilt_degrees" class="is-long-axis-horizontal"
-                    min="0" max="90" step="0.5">
+            <div class="slider small">
+                <input id="tilt" type="range" v-model="axial_tilt_degrees" orient="vertical" min="0" max="90" step="0.5">
+                <input id="tilt" type="range" v-model="axial_tilt_degrees" min="0" max="90" step="0.5">
+                <span></span>
             </div>
         </div>
         <div class="long-axis-group slider-label label">
-            <div class="btn">
-                <span class="material-symbols-outlined">routine</span>
+            <div class="vertical center-align middle-align">
+                <i>routine</i>
                 <div id="day-length" class="vertical-axis-group">
                     <div>Day Length</div>
                     <div>{{ format_time(day_length).quantity }}{{ format_time(day_length).unit }}</div>
                 </div>
             </div>
-            <div>
-                <input id="day-length" type="range" v-model="log10_day_length" class="is-long-axis-vertical slider-vertical" orient="vertical"
-                    min="4.45" max="7.5" step="0.01">
-                <input id="day-length" type="range" v-model="log10_day_length" class="is-long-axis-horizontal"
-                    min="4.45" max="7.5" step="0.01">
+            <div class="slider small">
+                <input id="day-length" type="range" v-model="log10_day_length" orient="vertical" min="4.45" max="7.5" step="0.01">
+                <input id="day-length" type="range" v-model="log10_day_length" min="4.45" max="7.5" step="0.01">
+                <span></span>
             </div>
         </div>
         <div class="long-axis-group slider-label label">
-            <div class="btn">
-                <span class="material-symbols-outlined">orbit</span>
+            <div class="vertical center-align middle-align">
+                <i>orbit</i>
                 <div id="semi-major" class="vertical-axis-group">
                     <div>Semi-Major Axis</div>
                     {{ semi_major_axis_au }}A.U.
                 </div>
             </div>
-            <div>
-                <input id="semi-major" type="range" v-model="log10_semi_major_axis" class="is-long-axis-vertical slider-vertical" orient="vertical"
-                    min="8.5" max="14.1" step="0.1">
-                <input id="semi-major" type="range" v-model="log10_semi_major_axis" class="is-long-axis-horizontal"
-                    min="8.5" max="14.1" step="0.1">
+            <div class="slider small">
+                <input id="semi-major" type="range" v-model="log10_semi_major_axis" orient="vertical" min="8.5" max="14.1" step="0.1">
+                <input id="semi-major" type="range" v-model="log10_semi_major_axis" min="8.5" max="14.1" step="0.1">
+                <span></span>
             </div>
         </div>
     </div>
@@ -306,48 +314,50 @@
                         {{speeds[speed_i].name}}
                     </span>
                 </div>
-                <a class="material-symbols-outlined" v-on:click="slower()">
-                    fast_rewind
-                </a>
-                <a class="material-symbols-outlined" v-on:click="faster()">
-                    fast_forward
-                </a>
+                <button class="toolbary vertical small-text" v-on:click="slower()">
+                    <i>fast_rewind</i>
+                    Speed-up
+                </button>
+                <button class="toolbary vertical small-text" v-on:click="faster()">
+                    <i>fast_forward</i>
+                    Speed-down
+                </button>
             </nav>
             <button class="extra round circle error">
-                <a class="material-symbols-outlined" v-on:click="togglePause()" v-if="paused">
-                    play_arrow
+                <a v-on:click="togglePause()" v-if="paused">
+                    <i>play_arrow</i>
                 </a>
-                <a class="material-symbols-outlined" v-on:click="togglePause()" v-if="!paused">
-                    pause
+                <a v-on:click="togglePause()" v-if="!paused">
+                    <i>pause</i>
                 </a>
             </button>
         </nav>
     </div>
     <nav class="toolbar vertical small-elevate">
-    <a onClick="window.location.reload();">
+    <button class="toolbary vertical small-text" onClick="window.location.reload();">
         <i>refresh</i>
-        <span>Refresh</span>
-    </a>
-    <a data-ui="#file-control">
+        Refresh
+    </button>
+    <button class="toolbary vertical small-text" data-ui="#file-control">
         <i>folder</i>
-        <span>File</span>
-    </a>
-    <a data-ui="#view-control">
+        File
+    </button>
+    <button class="toolbary vertical small-text" data-ui="#view-control">
         <i>visibility</i>
-        <span>View</span>
-    </a>
-    <a data-ui="#world-control">
+        View
+    </button>
+    <button class="toolbary vertical small-text" data-ui="#world-control">
         <i>globe</i>
-        <span>World</span>
-    </a>
-    <a data-ui="#tune-control">
+        World
+    </button>
+    <button class="toolbary vertical small-text" data-ui="#tune-control">
         <i>tune</i>
-        <span>Tune</span>
-    </a>
+        Tune
+    </button>
 </nav>
 </div>
 
-<a id="hidden-downloader" href="dataUrl" download="filename"></a>
+<button id="hidden-downloader" href="dataUrl" download="filename"></button>
 
 <div id="stats">
 </div>
@@ -405,18 +415,18 @@
         </p>
         <p>Writing a tectonics simulator in a browser is hard stuff. We're going to need all the tools we can get.
         </p>
-        <p>It looks like you're using a browser that supports WebGL, but you just need to modify some settings, first. <a href="http://get.webgl.org/">Here</a> is a link that will help you get started.
+        <p>It looks like you're using a browser that supports WebGL, but you just need to modify some settings, first. <button href="http://get.webgl.org/">Here</button> is a link that will help you get started.
         </p>
         <p>Until then, here's a video of what you're missing:
         </p>
         <iframe width="420" height="315" src="https://www.youtube.com/watch?v=MYMOHkVMIcA" frameborder="0" allowfullscreen></iframe>
     </div>
     <div v-if="isNoJs" class="loading-dialog">
-        <<span class="material-symbols-outlined">cycle</span>
+        <progress class="circle wavy large"></progress>
         <h2>Initializing</h2>
     </div>
     <div v-if="isLoadingSave" class="collapse loading-dialog">
-        <span class="material-symbols-outlined">cycle</span>
+        <progress class="circle wavy large"></progress>
         <h2>Loading</h2>
     </div>
     <div class="notifications-dialog hidden-when-loading">
@@ -1138,7 +1148,7 @@
             }, timestep);
         },
         getClass: function(value, scalarViewSelected) {
-            return value == scalarViewSelected? 'btn-secondary' : '';
+            return value == scalarViewSelected? 'active' : '';
         },
       }
     });
