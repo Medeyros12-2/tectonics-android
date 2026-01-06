@@ -13,11 +13,11 @@
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/main.css"/>
     <link rel="stylesheet" href="styles/app.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/beercss@3.13.1/dist/cdn/beer.min.css">
-    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.13.1/dist/cdn/beer.min.js"></script>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.2/dist/cdn/material-dynamic-colors.min.js"></script>
     <!-- <link rel="stylesheet" href="https://medeyros12.github.io/OneCSS/oui_light.css"/> -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz@30" rel="stylesheet"/>
+    <link href="https://medeyros12.github.io/cafezincss/dist/cdn/cafezin.links.css" rel="stylesheet">
+    <script type="module" src="https://medeyros12.github.io/cafezincss/dist/cdn/cafezin.links.js"></script>
+    <script type="module" src="https://medeyros12.github.io/cafezincss/dist/cdn/material-dynamic-colors.min.js"></script>
 
     <script src="libraries/vue.js"></script>
     <script src="libraries/Chart.js"></script>
@@ -96,112 +96,74 @@
 
     <link rel="manifest" href="manifest.json" />
 </head>
-<body>
-<!-- three.js container -->
-<div id="container"></div>
-<!-- logo -->
-<div id="header">
-    <h1><a href="blog/">Tectonics</a></h1>
-    <div id="navigation">
-        <a href="blog/index.html">ABOUT</a>&nbsp;
-        <a href="blog/news.html">BLOG</a>&nbsp;
-        <a href="blog/credits.html">CREDITS</a>&nbsp;
-        <a href="https://github.com/Medeyros12/tectonics">CODE</a>&nbsp;
-    </div>
-</div>
-<!-- info on screen display -->
-<div id="main-control" class="bottom-align right-align control-material" style="gap: 8px; padding: 16px;">
-    <div class="vertical-axis-group" style="gap: 8px;">
-        <nav class="toolbar small-elevate" style="justify-content: space-between; margin: 0px;">
-            <span id='age-display' class="oui-text">{{ format_count(elapsed_time).quantity }}</span>
-            <span id='age-units-display' class="oui-text">{{ format_count(elapsed_time).unit }}y</span>
-        </nav>
-        <nav class="center-align tiny-space" style="margin: 0px;">
-            <nav class="toolbar small-elevate">
-                <span id="speed-display" class="oui-text">
-                    {{speeds[speed_i].name}}
-                </span>
-                <a class="material-symbols-outlined" v-on:click="slower()">
-                    fast_rewind
-                </a>
-                <a class="material-symbols-outlined" v-on:click="faster()">
-                    fast_forward
-                </a>
-            </nav>
-            <button class="extra round circle error">
-                <a class="material-symbols-outlined" v-on:click="togglePause()" v-if="paused">
-                    play_arrow
-                </a>
-                <a class="material-symbols-outlined" v-on:click="togglePause()" v-if="!paused">
-                    pause
-                </a>
-            </button>
-        </nav>
-    </div>
-    <nav class="toolbar vertical small-elevate">
-        <a type="button" class="material-symbols-outlined" onClick="window.location.reload();">
-            refresh
-        </a>
-        <a type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#file-control, #main-control">
-            folder
-        </a>
-        <a type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#view-control, #main-control">
-            visibility
-        </a>
-        <a type="button" class="material-symbols-outlined" data-toggle="collapse" data-target=".world-control, #main-control">
-            globe
-        </a>
-        <a type="button" class="material-symbols-outlined" data-toggle="collapse" data-target=".tune-control, #main-control">
-            tune
-        </a>
-    </div>
-</div>
+<body class="dark">
+<!-- beer css right nav rail -->
+<nav class="right reverse">
+    <a onClick="window.location.reload();">
+        <i>refresh</i>
+        <span>Refresh</span>
+    </a>
+    <a data-ui="#file-control">
+        <i>folder</i>
+        <span>File</span>
+    </a>
+    <a data-ui="#view-control">
+        <i>visibility</i>
+        <span>View</span>
+    </a>
+    <a data-ui="#world-control">
+        <i>globe</i>
+        <span>World</span>
+    </a>
+    <a data-ui="#tune-control">
+        <i>tune</i>
+        <span>Tune</span>
+    </a>
+</nav>
 
-<article id="file-control" class="collapse control oui-float_control" style="margin: 10px;">
-    <div class="short-axis-group">
-        <button type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#file-control, #main-control">
-            arrow_downward
+<dialog id="file-control" class="right" style="width: min-content;">
+    <button type="button" class="material-symbols-outlined border vertical" data-ui="#file-control">
+        arrow_downward
+    </button>
+    <button id="screenshot" v-if="isEnabled" type="button" class="material-symbols-outlined border vertical" v-on:click="capture" v-on:keyup.p="capture">
+        screenshot_frame_2
+    </button>
+    <div id="export" class="short-axis-group">
+        <button type="button" class="material-symbols-outlined border vertical" data-toggle="collapse" data-target="#export-menu" aria-haspopup="true" aria-expanded="false">
+            upload
         </button>
-        <button id="screenshot" v-if="isEnabled" type="button" class="material-symbols-outlined" v-on:click="capture" v-on:keyup.p="capture">
-            screenshot_frame_2
-        </button>
-        <div id="export" class="short-axis-group">
-            <button type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#export-menu" aria-haspopup="true" aria-expanded="false">
-                upload
+        <div id="export-menu" class="collapse">
+            <button type="button" class="material-symbols-outlined border vertical" v-on:click="csv">
+                csv
             </button>
-            <div id="export-menu" class="collapse">
-                <button type="button" class="material-symbols-outlined" v-on:click="csv">
-                    csv
-                </button>
-            </div>
         </div>
-        <div id="import" class="short-axis-group">
-            <button type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#import-menu" aria-haspopup="true" aria-expanded="false">
-                upload_file
-            </button>
-            <div id="import-menu" class="collapse">
-                <button type="button" class="material-symbols-outlined" v-on:click="loadImage()">
-                    altitude
-                    <span class="instructions">drag</span>
-                    <input id="load-image" ref="loadImage" type="file" v-on:change="loadImagePart2($event.target.files[0])" class="hidden" />
-                </button>
-            </div>
-        </div>
-        <button id="load" type="button" class="material-symbols-outlined load" v-on:click="load()">
-            publish
-            <span class="instructions">drag</span>
-            <input id="load-input" ref="loadInput" type="file" v-on:change="loadPart2($event.target.files[0])" class="hidden" />
-        </button>
-        <button id="save" type="button" class="material-symbols-outlined"  v-on:click="save">
-            download
-            <span class="instructions">s</span>
-        </button>
     </div>
-</article>
+    <div id="import" class="short-axis-group">
+        <button type="button" class="material-symbols-outlined border vertical" data-toggle="collapse" data-target="#import-menu" aria-haspopup="true" aria-expanded="false">
+            upload_file
+        </button>
+        <div id="import-menu" class="collapse">
+            <button type="button" class="material-symbols-outlined border vertical" v-on:click="loadImage()">
+                altitude
+                <span class="instructions">drag</span>
+                <input id="load-image" ref="loadImage" type="file" v-on:change="loadImagePart2($event.target.files[0])" class="hidden" />
+            </button>
+        </div>
+    </div>
+    <button id="load" type="button" class="material-symbols-outlined load border vertical" v-on:click="load()">
+        publish
+        <span class="instructions">drag</span>
+        <input id="load-input" ref="loadInput" type="file" v-on:change="loadPart2($event.target.files[0])" class="hidden" />
+    </button>
+    <button id="save" type="button" class="material-symbols-outlined"  v-on:click="save">
+        download
+        <span class="instructions">s</span>
+    </button>
+</dialog>
 
- <article id="view-control" class="short-axis-group collapse control oui-float_control" style="margin: 10px;">
+ <dialog id="view-control" class="right" style="width: min-content;">
     <!-- RETURN -->
-    <button type="button" class="material-symbols-outlined" data-toggle="collapse" data-target="#view-control, #main-control">
+    <button type="button" class="material-symbols-outlined" data-ui="#view-control">
         arrow_downward
     </button>
     <!-- FULLSCREEN -->
@@ -238,13 +200,13 @@
     <button type="button" class="material-symbols-outlined" v-for="option in projectionOptions" v-bind:class="getClass(option.value, projectionSelected)" v-bind:data-value="option.value" v-on:click="setProjectionSelected(option.value)">
         {{option.icon}}
     </button>
-</article>
+</dialog>
 
-<article id="tune-control" class="tune-control collapse control oui-float_control" style="margin: 10px;">
+<dialog id="tune-control" class="right">
     <div class="short-axis-group">
         <div class="vertical-axis-group">
-            <div class="horizontal-axis-group">
-                <input id="seed" v-model="seed" class="oui-textbox"></input>
+            <div class="field label round fill middle-align left-align">
+                <input id="seed" v-model="seed" class="padding"></input>
             </div>
             <div class="horizontal-axis-group">
                 <button type="button" class="material-symbols-outlined" v-on:click="randomizeCrust">
@@ -258,7 +220,7 @@
                 <button type="button" class="material-symbols-outlined" v-bind:class="{'btn-secondary': supercontinentBreakup}" v-on:click="setSupercontinentBreakup(!supercontinentBreakup? 1:0)">
                     broken_image
                 </button>
-                <button type="button" class="material-symbols-outlined tune-control" data-toggle="collapse" data-target="#main-control, .tune-control">
+                <button type="button" class="material-symbols-outlined tune-control" data-ui="#tune-control">
                     arrow_downward
                 </button>
             </div>
@@ -279,11 +241,11 @@
             </div>
         </div>
     </div>
-</article>
+</dialog>
 
-<article id="world-control" class="world-control collapse control oui-float_control" style="margin: 10px;">
+<dialog id="world-control" class="right" style="padding: 1rem; gap: 0.5rem;">
     <div class="short-axis-group">
-        <button type="button" class="material-symbols-outlined world-control" data-toggle="collapse" data-target="#main-control, .world-control">
+        <button type="button" class="material-symbols-outlined world-control" data-ui="#world-control">
             arrow_downward
         </button>
         <div class="long-axis-group slider-label label">
@@ -332,7 +294,59 @@
             </div>
         </div>
     </div>
-</article>
+</dialog>
+
+<main class="responsive">
+<!-- three.js container -->
+<div id="container"></div>
+<!-- logo -->
+<div id="header">
+    <h1><a href="tectonics.foo.ng">Tectonics</a></h1>
+    <div id="navigation">
+        <a href="blog/index.html">ABOUT</a>&nbsp;
+        <a href="blog/news.html">BLOG</a>&nbsp;
+        <a href="blog/credits.html">CREDITS</a>&nbsp;
+        <a href="https://github.com/Medeyros12/tectonics">CODE</a>&nbsp;
+    </div>
+</div>
+<!-- info on screen display -->
+<div id="main-control" class="bottom-align right-align control-material" style="gap: 8px; padding: 16px;">
+    <div class="vertical-axis-group" style="gap: 8px;">
+        <div class="field label round fill" style="justify-content: space-between; margin: 0px;">
+            <input>
+                <span id='age-display'>
+                    {{ format_count(elapsed_time).quantity }}
+                </span>
+                <span id='age-units-display'>
+                    {{ format_count(elapsed_time).unit }}y
+                </span>
+            </input>
+        </div>
+        <nav class="center-align tiny-space" style="margin: 0px;">
+            <nav class="toolbar small-elevate">
+                <div class="field label round fill">
+                    <span id="speed-display" class="padding">
+                        {{speeds[speed_i].name}}
+                    </span>
+                </div>
+                <a class="material-symbols-outlined" v-on:click="slower()">
+                    fast_rewind
+                </a>
+                <a class="material-symbols-outlined" v-on:click="faster()">
+                    fast_forward
+                </a>
+            </nav>
+            <button class="extra round circle error">
+                <a class="material-symbols-outlined" v-on:click="togglePause()" v-if="paused">
+                    play_arrow
+                </a>
+                <a class="material-symbols-outlined" v-on:click="togglePause()" v-if="!paused">
+                    pause
+                </a>
+            </button>
+        </nav>
+    </div>
+</div>
 
 <a id="hidden-downloader" href="dataUrl" download="filename"></a>
 
@@ -1407,5 +1421,6 @@
     // once everything is loaded, instruct the user how to start
     dialogVue.notify("click ▶ or press > to begin")
 </script>
+</main>
 </body>
 </html>
