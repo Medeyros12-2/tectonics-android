@@ -15,9 +15,9 @@
     <link rel="stylesheet" href="styles/app.css"/>
     <!-- <link rel="stylesheet" href="https://medeyros12.github.io/OneCSS/oui_light.css"/> -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz@30" rel="stylesheet"/>
-    <link href="https://medeyros12.github.io/cafezincss/dist/cdn/cafezin.links.css" rel="stylesheet">
-    <script type="module" src="https://medeyros12.github.io/cafezincss/dist/cdn/cafezin.min.js"></script>
-    <script type="module" src="https://medeyros12.github.io/cafezincss/dist/cdn/material-dynamic-colors.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/beercss@3.13.1/dist/cdn/beer.min.css" rel="stylesheet">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/beercss@3.13.1/dist/cdn/beer.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/material-dynamic-colors@1.1.2/dist/cdn/material-dynamic-colors.min.js"></script>
 
     <script src="libraries/vue.js"></script>
     <script src="libraries/Chart.js"></script>
@@ -98,30 +98,9 @@
 </head>
 <body class="dark">
 <!-- beer css right nav rail -->
-<nav class="right reverse">
-    <a onClick="window.location.reload();">
-        <i>refresh</i>
-        <span>Refresh</span>
-    </a>
-    <a data-ui="#file-control">
-        <i>folder</i>
-        <span>File</span>
-    </a>
-    <a data-ui="#view-control">
-        <i>visibility</i>
-        <span>View</span>
-    </a>
-    <a data-ui="#world-control">
-        <i>globe</i>
-        <span>World</span>
-    </a>
-    <a data-ui="#tune-control">
-        <i>tune</i>
-        <span>Tune</span>
-    </a>
-</nav>
 
-<dialog id="file-control" class="toolbar vertical small-elevate" style="width: min-content;">
+
+<dialog id="file-control" class="right" style="width: min-content;">
     <button type="button" class="material-symbols-outlined border vertical" data-ui="#file-control">
         arrow_downward
     </button>
@@ -312,16 +291,14 @@
 <!-- info on screen display -->
 <div id="main-control" class="bottom-align right-align control-material" style="gap: 8px; padding: 16px;">
     <div class="vertical-axis-group" style="gap: 8px;">
-        <div class="field label round fill" style="justify-content: space-between; margin: 0px;">
-            <input>
-                <span id='age-display'>
-                    {{ format_count(elapsed_time).quantity }}
-                </span>
-                <span id='age-units-display'>
-                    {{ format_count(elapsed_time).unit }}y
-                </span>
-            </input>
-        </div>
+        <nav class="toolbar small-elevate" style="justify-content: space-between; margin: 0px;">
+            <span id='age-display'>
+                {{ format_count(elapsed_time).quantity }}
+            </span>
+            <span id='age-units-display'>
+                {{ format_count(elapsed_time).unit }}y
+            </span>
+        </nav>
         <nav class="center-align tiny-space" style="margin: 0px;">
             <nav class="toolbar small-elevate">
                 <div class="field label round fill">
@@ -346,6 +323,28 @@
             </button>
         </nav>
     </div>
+    <nav class="toolbar vertical small-elevate">
+    <a onClick="window.location.reload();">
+        <i>refresh</i>
+        <span>Refresh</span>
+    </a>
+    <a data-ui="#file-control">
+        <i>folder</i>
+        <span>File</span>
+    </a>
+    <a data-ui="#view-control">
+        <i>visibility</i>
+        <span>View</span>
+    </a>
+    <a data-ui="#world-control">
+        <i>globe</i>
+        <span>World</span>
+    </a>
+    <a data-ui="#tune-control">
+        <i>tune</i>
+        <span>Tune</span>
+    </a>
+</nav>
 </div>
 
 <a id="hidden-downloader" href="dataUrl" download="filename"></a>
