@@ -99,115 +99,115 @@
 <body class="dark">
 <dialog id="file-control" class="right vertical-axis-group" style="padding: 1rem; gap: 0.5rem; min-block-size: 4rem; min-inline-size: 4rem;">
     <header>
-        <a data-ui="#file-control">
+        <button data-ui="#file-control">
             <i>right_panel_close</i>
-        </a>
+        </button>
     </header>
-    <a class="toolbary vertical small-text" id="screenshot" v-if="isEnabled" v-on:click="capture" v-on:keyup.p="capture">
+    <button class="toolbary vertical small-text" id="screenshot" v-if="isEnabled" v-on:click="capture" v-on:keyup.p="capture">
         <i>screenshot_frame</i>
         Screenshot
-    </a>
+    </button>
     <div id="export" class="short-axis-group">
-        <a class="toolbary vertical small-text" data-toggle="collapse" data-target="#export-menu" aria-haspopup="true" aria-expanded="false">
+        <button class="toolbary vertical small-text" data-toggle="collapse" data-target="#export-menu" aria-haspopup="true" aria-expanded="false">
             <i>upload</i>
             Export
-        </a>
+        </button>
         <div id="export-menu" class="collapse">
-            <a class="toolbary vertical small-text" v-on:click="csv">
+            <button class="toolbary vertical small-text" v-on:click="csv">
                 <i>csv</i>
                 CVS
-            </a>
+            </button>
         </div>
     </div>
     <div id="import" class="short-axis-group">
-        <a class="toolbary vertical small-text" data-toggle="collapse" data-target="#import-menu" aria-haspopup="true" aria-expanded="false">
+        <button class="toolbary vertical small-text" data-toggle="collapse" data-target="#import-menu" aria-haspopup="true" aria-expanded="false">
             <i>upload_file</i>
             Import
-        </a>
+        </button>
         <div id="import-menu" class="collapse">
-            <a class="toolbary vertical small-text" v-on:click="loadImage()">
+            <button class="toolbary vertical small-text" v-on:click="loadImage()">
                 <i>altitude</i>
                 Heigh map
                 <span class="instructions">drag</span>
                 <input id="load-image" ref="loadImage" type="file" v-on:change="loadImagePart2($event.target.files[0])" class="hidden" />
-            </a>
+            </button>
         </div>
     </div>
-    <a id="load" class="load vertical small-text" v-on:click="load()">
+    <button id="load" class="load vertical small-text" v-on:click="load()">
         <i>publish</i>
         Load
         <span class="instructions">drag</span>
         <input id="load-input" ref="loadInput" type="file" v-on:change="loadPart2($event.target.files[0])" class="hidden" />
-    </a>
-    <a class="toolbary vertical small-text" id="save"  v-on:click="save">
+    </button>
+    <button class="toolbary vertical small-text" id="save"  v-on:click="save">
         <i>download</i>
         Save
         <span class="instructions">s</span>
-    </a>
+    </button>
 </dialog>
 
 <dialog id="view-control" class="right vertical-axis-group" style="padding: 1rem; gap: 0.5rem; min-block-size: 4rem; min-inline-size: 4rem;">
     <!-- RETURN -->
     <header>
-        <a data-ui="#view-control">
+        <button data-ui="#view-control">
             <i>right_panel_close</i>
-        </a>
+        </button>
     </header>
     <!-- FULLSCREEN -->
-    <a id="fullscreen" v-if="isFullscreenVisible" class="fullscreen vertical small-text" data-toggle="button" aria-pressed="true" v-on:click="toggleFullscreen()">
+    <button id="fullscreen" v-if="isFullscreenVisible" class="fullscreen vertical small-text" data-toggle="button" aria-pressed="true" v-on:click="toggleFullscreen()">
         <i v-if="!isFullscreen">fullscreen</i>
         <i v-if="isFullscreen">fullscreen_exit</i>
         fullscreen
         <span class="instructions">F11</span>
-    </a>
+    </button>
     <!-- SCALAR OPTIONS -->
-    <a class="toolbary vertical small-text" v-bind:class="{'active': ocean}" v-on:click="setOcean(!ocean? 1:0)">
+    <button class="toolbary vertical small-text" v-bind:class="{'active': ocean}" v-on:click="setOcean(!ocean? 1:0)">
         <i>water_drop</i>
         Show water
-    </a>
-    <a class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': night}" v-on:click="setShadows(!night? 1:0)">
+    </button>
+    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': night}" v-on:click="setShadows(!night? 1:0)">
         <i>partly_cloudy_night</i>
         Show shadows
-    </a>
-    <a class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': snow}" v-on:click="setSnow(!snow? 1:0)">
+    </button>
+    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': snow}" v-on:click="setSnow(!snow? 1:0)">
         <i>ac_unit</i>
         Show snow
-    </a>
-    <a class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': sediment}" v-on:click="setSediment(!sediment? 1:0)">
+    </button>
+    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': sediment}" v-on:click="setSediment(!sediment? 1:0)">
         <i>snowing</i>
         Show sediments
-    </a>
-    <a class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': plant}" v-on:click="setPlant(!plant? 1:0)">
+    </button>
+    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': plant}" v-on:click="setPlant(!plant? 1:0)">
         <i>nature</i>
         Show plants
-    </a>
-    <a class="toolbary vertical small-text" v-for="option in scalarViewOptions" v-bind:class="getClass(option.value, scalarViewSelected)" v-bind:data-value="option.value" v-on:click="setScalarViewSelected(option.value)">
+    </button>
+    <button class="toolbary vertical small-text" v-for="option in scalarViewOptions" v-bind:class="getClass(option.value, scalarViewSelected)" v-bind:data-value="option.value" v-on:click="setScalarViewSelected(option.value)">
         <i>{{option.icon}}</i>
         {{option.name}}
-    </a>
+    </button>
     <!-- VECTOR OPTIONS -->
-    <a class="toolbary vertical small-text" v-for="option in vectorViewOptions" v-bind:title="option.tip" v-bind:class="getClass(option.value, vectorViewSelected)" v-bind:data-value="option.value" v-on:click="setVectorViewSelected(option.value)">
+    <button class="toolbary vertical small-text" v-for="option in vectorViewOptions" v-bind:title="option.tip" v-bind:class="getClass(option.value, vectorViewSelected)" v-bind:data-value="option.value" v-on:click="setVectorViewSelected(option.value)">
         <i>{{option.icon}}</i>
         {{option.name}}
-    </a>
+    </button>
 
     <!-- PROJECTION OPTIONS -->
-    <a class="toolbary vertical small-text" v-for="option in projectionOptions" v-bind:class="getClass(option.value, projectionSelected)" v-bind:data-value="option.value" v-on:click="setProjectionSelected(option.value)">
+    <button class="toolbary vertical small-text" v-for="option in projectionOptions" v-bind:class="getClass(option.value, projectionSelected)" v-bind:data-value="option.value" v-on:click="setProjectionSelected(option.value)">
         <i>{{option.icon}}</i>
         {{option.name}}
-    </a>
+    </button>
 </dialog>
 
 <dialog id="tune-control" class="vertical-axis-group" style="padding: 1rem; gap: 0.5rem;">
     <header>
-        <a class="toolbary tune-control" data-ui="#tune-control">
+        <button class="toolbary tune-control" data-ui="#tune-control">
             <i>right_panel_close</i>
-        </a>
+        </button>
     </header>
-    <a class="toolbary vertical small-text" v-bind:class="{'active': supercontinentBreakup}" v-on:click="setSupercontinentBreakup(!supercontinentBreakup? 1:0)">
+    <button class="toolbary vertical small-text" v-bind:class="{'active': supercontinentBreakup}" v-on:click="setSupercontinentBreakup(!supercontinentBreakup? 1:0)">
         <i>broken_image</i>
         Supercontinent Breakup
-    </a>
+    </button>
     <div class="short-axis-group">
         <div class="vertical-axis-group">
             <div class="field label round fill middle-align left-align">
@@ -234,9 +234,9 @@
 <dialog id="world-control" class="vertical-axis-group" style="padding: 1rem; gap: 0.5rem;">
     <div class="short-axis-group">
         <header>
-            <a class="toolbary world-control" data-ui="#world-control">
+            <button class="toolbary world-control" data-ui="#world-control">
                 <i>right_panel_close</i>
-            </a>
+            </button>
         </header>
         <div class="long-axis-group slider-label label">
             <div class="vertical center-align middle-align">
@@ -313,14 +313,14 @@
                         {{speeds[speed_i].name}}
                     </span>
                 </div>
-                <a class="toolbary vertical small-text" v-on:click="slower()">
+                <button class="toolbary vertical small-text" v-on:click="slower()">
                     <i>fast_rewind</i>
                     Speed-up
-                </a>
-                <a class="toolbary vertical small-text" v-on:click="faster()">
+                </button>
+                <button class="toolbary vertical small-text" v-on:click="faster()">
                     <i>fast_forward</i>
                     Speed-down
-                </a>
+                </button>
             </nav>
             <button class="extra round circle error">
                 <a v-on:click="togglePause()" v-if="paused">
@@ -333,30 +333,30 @@
         </nav>
     </div>
     <nav class="toolbar vertical small-elevate">
-    <a class="toolbary vertical small-text" onClick="window.location.reload();">
+    <button class="toolbary vertical small-text" onClick="window.location.reload();">
         <i>refresh</i>
         Refresh
-    </a>
-    <a class="toolbary vertical small-text" data-ui="#file-control">
+    </button>
+    <button class="toolbary vertical small-text" data-ui="#file-control">
         <i>folder</i>
         File
-    </a>
-    <a class="toolbary vertical small-text" data-ui="#view-control">
+    </button>
+    <button class="toolbary vertical small-text" data-ui="#view-control">
         <i>visibility</i>
         View
-    </a>
-    <a class="toolbary vertical small-text" data-ui="#world-control">
+    </button>
+    <button class="toolbary vertical small-text" data-ui="#world-control">
         <i>globe</i>
         World
-    </a>
-    <a class="toolbary vertical small-text" data-ui="#tune-control">
+    </button>
+    <button class="toolbary vertical small-text" data-ui="#tune-control">
         <i>tune</i>
         Tune
-    </a>
+    </button>
 </nav>
 </div>
 
-<a id="hidden-downloader" href="dataUrl" download="filename"></a>
+<button id="hidden-downloader" href="dataUrl" download="filename"></button>
 
 <div id="stats">
 </div>
