@@ -919,6 +919,7 @@
                 {    name:'3My/s',     scale: 3  *Units.MEGAYEAR,  },
                 {    name:'4My/s',     scale: 4  *Units.MEGAYEAR,  },
                 {    name:'5My/s',     scale: 5  *Units.MEGAYEAR,  },
+                {    name:'15My/s',    scale: 15 *Units.MEGAYEAR,  },
             ],
             elapsed_time: 0,
             isSeasonVisible: true,
@@ -1231,10 +1232,14 @@
         },
         setSupercontinentBreakup: function(value) {
             this.supercontinentBreakup = value;
-            if (!this.supercontinentBreakup) {
-                sim.focus().lithosphere.supercontinentCycle.duration = Infinity;
-            } else {
-                sim.focus().lithosphere.supercontinentCycle.duration = 0;
+            var lith = sim.focus().lithosphere;
+            // Enable/disable the periodic plate reset cycle. By default it's off
+            // so plates are only reset once at simulation start.
+            lith.enablePlateCycling = !!value;
+            if (value) {
+                // initialize cycle parameters when enabling
+                lith.supercontinentCycle.age = 0;
+                lith.supercontinentCycle.duration = lith.supercontinentCycle.getRandomDuration();
             }
         },
         randomizeCrust: function() {
@@ -1338,10 +1343,11 @@
         },
         setSupercontinentBreakup: function(value) {
             this.supercontinentBreakup = value;
-            if (!this.supercontinentBreakup) {
-                sim.focus().lithosphere.supercontinentCycle.duration = Infinity;
-            } else {
-                sim.focus().lithosphere.supercontinentCycle.duration = 0;
+            var lith = sim.focus().lithosphere;
+            lith.enablePlateCycling = !!value;
+            if (value) {
+                lith.supercontinentCycle.age = 0;
+                lith.supercontinentCycle.duration = lith.supercontinentCycle.getRandomDuration();
             }
         },
         randomizeCrust: function() {

@@ -6,6 +6,9 @@ function Lithosphere(grid, parameters) {
     var grid = grid || stop('missing parameter: "grid"');
     this.supercontinentCycle = new SupercontinentCycle(this, parameters);
     this.plates = (parameters['plates'] || []).map(plate_parameters => new Plate(grid, plate_parameters));
+    // Whether the automatic supercontinent/plate reset cycle is active.
+    // Default: disabled (only reset at simulation start).
+    this.enablePlateCycling = false;
 
     this.getParameters = function() {
         return { 
@@ -451,6 +454,8 @@ function Lithosphere(grid, parameters) {
         assert_dependencies();
 
         this.average_conserved_per_cell = Crust.get_average_conserved_per_cell(this.total_crust);
+        // perform a single initial plate segmentation/reset at simulation start
+        this.resetPlates();
     }
 
     this.invalidate = function() {
@@ -490,7 +495,10 @@ function Lithosphere(grid, parameters) {
         integrate_deltas         (this, this.plates, seconds);// this uses the map above in order to add and subtract crust
 
         move_plates             (this.plates, seconds);     // this performs the actual plate movement
-        this.supercontinentCycle.update(seconds);             // this periodically splits the world into plates
+        // Only advance the supercontinent cycle when the user enables it.
+        if (this.enablePlateCycling) {
+            this.supercontinentCycle.update(seconds);             // this periodically splits the world into plates
+        }
         merge_plates_to_master    (this.plates, this);         // this stitches plates together to create a world map
         update_rifting            (this, this.plates);         // this identifies rifting regions on the world map and adds crust to plates where needed
         update_subducted         (this, this.plates);         // this identifies detaching regions on the world map and then removes crust from plates where needed
