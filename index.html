@@ -479,7 +479,9 @@
         var reader = new FileReader();
         reader.onload = function(e) {
             var data_url = e.target.result;
+            // create image
             var image = new Image();
+            // create canvas context from image
             image.onload = function(){
                 // create canvas context from image after the image has loaded
                 var canvas = document.createElement('canvas');
@@ -496,24 +498,14 @@
                     sim.focus().lithosphere.total_crust
                 );
 
-                // clear any pending deltas so we don't immediately overwrite the imported crust
-                var lith = sim.focus().lithosphere;
+                // invalidate cached memos and recalc plate segmentation to apply the imported heights,
+                // then force an immediate view update so the imported map persists.
+                var lith = sim.focus() && sim.focus().lithosphere;
                 if (lith) {
-                    try {
-                        Crust.reset(lith.crust_delta);
-                        Crust.reset(lith.erosion);
-                        Crust.reset(lith.weathering);
-                        Crust.reset(lith.lithification);
-                        Crust.reset(lith.metamorphosis);
-                        Crust.reset(lith.accretion);
-                    } catch (err) {
-                        // ignore if fields are undefined for some reason
-                    }
-
-                    // invalidate cached memos and recalc plate segmentation to apply the imported heights
                     try { lith.invalidate(); } catch (err) {}
                     try { lith.resetPlates(); } catch (err) {}
                 }
+                try { view.update(sim); view.render(); } catch (err) {}
 
                 onSimLoadStop.fire();
             };
