@@ -479,23 +479,41 @@
         var reader = new FileReader();
         reader.onload = function(e) {
             var data_url = e.target.result;
-            // create image
             var image = new Image();
-            // create canvas context from image
-            var canvas = document.createElement('canvas');
-            var context = canvas.getContext('2d');
-            context.drawImage(image, 0, 0);
             image.onload = function(){
+                // create canvas context from image after the image has loaded
+                var canvas = document.createElement('canvas');
                 canvas.width  = image.width;
                 canvas.height = image.height;
-                context.drawImage(image,0,0); // Or at whatever offset you like
+                var context = canvas.getContext('2d');
+                context.drawImage(image,0,0); // draw now that size is known
+
                 // generate crust from canvas context
                 var elevations = ImageImporter.get_elevations_from_canvas_context(context, sim.focus().grid);
                 CrustGenerator.get_crust_from_elevations(
-                    elevations, 
-                    CrustGenerator.modern_earth_attribute_height_maps, 
+                    elevations,
+                    CrustGenerator.modern_earth_attribute_height_maps,
                     sim.focus().lithosphere.total_crust
                 );
+
+                // clear any pending deltas so we don't immediately overwrite the imported crust
+                var lith = sim.focus().lithosphere;
+                if (lith) {
+                    try {
+                        Crust.reset(lith.crust_delta);
+                        Crust.reset(lith.erosion);
+                        Crust.reset(lith.weathering);
+                        Crust.reset(lith.lithification);
+                        Crust.reset(lith.metamorphosis);
+                        Crust.reset(lith.accretion);
+                    } catch (err) {
+                        // ignore if fields are undefined for some reason
+                    }
+
+                    // invalidate cached memos and recalc plate segmentation to apply the imported heights
+                    try { lith.invalidate(); } catch (err) {}
+                    try { lith.resetPlates(); } catch (err) {}
+                }
 
                 onSimLoadStop.fire();
             };
