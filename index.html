@@ -482,6 +482,9 @@
             // create image
             var image = new Image();
             // create canvas context from image
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            context.drawImage(image, 0, 0);
             image.onload = function(){
                 // create canvas context from image after the image has loaded
                 var canvas = document.createElement('canvas');
@@ -829,7 +832,7 @@
     });
     
     var loadVue = new Vue({
-      el: '#load',
+      // el: '#load',
       methods: {
           load: function() {
               // HACK: only <input> is capable of loading a file, 
@@ -845,7 +848,7 @@
     });
 
     var saveVue = new Vue({
-      el: '#save',
+      // el: '#save',
       methods: {
           save(event) {
             var stringified = JsonSerializer.sim(sim);
@@ -859,7 +862,7 @@
     });
 
     var exportVue = new Vue({
-      el: '#export',
+      // el: '#export',
       methods: {
         csv(event) {
             var content = CsvExporter.world(sim.focus());
@@ -873,7 +876,7 @@
     });
 
     var importVue = new Vue({
-      el: '#import',
+      // el: '#import',
       methods: {
           loadImage: function() {
               // HACK: only <input> is capable of loading a file, 
@@ -889,7 +892,7 @@
     });
 
     var screenshotVue = new Vue({
-      el: '#screenshot',
+      // el: '#screenshot',
       data: {
           isEnabled: false,
       },
