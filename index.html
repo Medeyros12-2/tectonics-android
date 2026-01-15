@@ -828,7 +828,7 @@
       }
     });
     
-    const loadVue = new Vue({
+    var loadVue = new Vue({
       el: '#load',
       methods: {
           load: function() {
@@ -844,35 +844,35 @@
       }
     });
 
-    const saveVue = new Vue({
+    var saveVue = new Vue({
       el: '#save',
       methods: {
-        save(event) {
-            const stringified = JsonSerializer.sim(sim);
-            const blob = new Blob([stringified], {type : 'application/json'});
-            const blobUrl = URL.createObjectURL(blob);
-            const elapsed_time = format_time(sim.elapsed_time);
-            const filename = `${sim.focus().name}-${elapsed_time.quantity}${elapsed_time.unit}.sim`;
-            download(blobUrl, filename);
-        }
+          save(event) {
+            var stringified = JsonSerializer.sim(sim);
+              var blob = new Blob([stringified], {type : 'application/json'});
+              var blobUrl = URL.createObjectURL(blob);
+              var elapsed_time = format_time(sim.elapsed_time);
+              var filename = `${sim.focus().name}-${elapsed_time.quantity}${elapsed_time.unit}.sim`;
+              download(blobUrl, filename);
+          }
       }
     });
 
-    const exportVue = new Vue({
+    var exportVue = new Vue({
       el: '#export',
       methods: {
         csv(event) {
-            const content = CsvExporter.world(sim.focus());
-            const blob = new Blob([content], {type : 'text/csv'});
-            const blobUrl = URL.createObjectURL(blob);
-            const elapsed_time = format_time(sim.elapsed_time);
-            const filename = `${sim.focus().name}-${elapsed_time.quantity}${elapsed_time.unit}.csv`;
+            var content = CsvExporter.world(sim.focus());
+            var blob = new Blob([content], {type : 'text/csv'});
+            var blobUrl = URL.createObjectURL(blob);
+            var elapsed_time = format_time(sim.elapsed_time);
+            var filename = `${sim.focus().name}-${elapsed_time.quantity}${elapsed_time.unit}.csv`;
             download(blobUrl, filename);
         }
       }
     });
 
-    const importVue = new Vue({
+    var importVue = new Vue({
       el: '#import',
       methods: {
           loadImage: function() {
@@ -888,7 +888,7 @@
       }
     });
 
-    const screenshotVue = new Vue({
+    var screenshotVue = new Vue({
       el: '#screenshot',
       data: {
           isEnabled: false,
@@ -898,9 +898,9 @@
       },
       methods: {
           capture(event) {
-              const elapsed_time = format_time(sim.elapsed_time);
-              const dataUrl = view.getScreenshotDataURL();
-              const filename = `${sim.focus().name}-${elapsed_time.quantity}${elapsed_time.unit}.png`
+              var elapsed_time = format_time(sim.elapsed_time);
+              var dataUrl = view.getScreenshotDataURL();
+              var filename = `${sim.focus().name}-${elapsed_time.quantity}${elapsed_time.unit}.png`
               download(dataUrl, filename);
           }
       }
