@@ -832,7 +832,7 @@
     });
     
     var loadVue = new Vue({
-      // el: '#load',
+      el: '#load',
       methods: {
           load: function() {
               // HACK: only <input> is capable of loading a file, 
@@ -848,7 +848,7 @@
     });
 
     var saveVue = new Vue({
-      // el: '#save',
+      el: '#save',
       methods: {
           save(event) {
             var stringified = JsonSerializer.sim(sim);
@@ -862,7 +862,7 @@
     });
 
     var exportVue = new Vue({
-      // el: '#export',
+      el: '#export',
       methods: {
         csv(event) {
             var content = CsvExporter.world(sim.focus());
@@ -876,7 +876,7 @@
     });
 
     var importVue = new Vue({
-      // el: '#import',
+      el: '#import',
       methods: {
           loadImage: function() {
               // HACK: only <input> is capable of loading a file, 
@@ -892,7 +892,7 @@
     });
 
     var screenshotVue = new Vue({
-      // el: '#screenshot',
+      el: '#screenshot',
       data: {
           isEnabled: false,
       },
@@ -1246,11 +1246,8 @@
         setSupercontinentBreakup: function(value) {
             this.supercontinentBreakup = value;
             var lith = sim.focus().lithosphere;
-            // Enable/disable the periodic plate reset cycle. By default it's off
-            // so plates are only reset once at simulation start.
             lith.enablePlateCycling = !!value;
             if (value) {
-                // initialize cycle parameters when enabling
                 lith.supercontinentCycle.age = 0;
                 lith.supercontinentCycle.duration = lith.supercontinentCycle.getRandomDuration();
             }
@@ -1440,11 +1437,12 @@
     //  display to break when user increases speed past 1wk/s.
     // We set speed to 1m/s here to work around this.
     timeMenuVue.speed(14)
-    
+
     setSupercontinentBreakup(0)
 
     // once everything is loaded, instruct the user how to start
     dialogVue.notify("click ▶ or press > to begin")
 </script>
+
 </body>
 </html>
