@@ -356,7 +356,8 @@
 </nav>
 </div>
 
-<button id="hidden-downloader" href="dataUrl" download="filename"></button>
+<!-- hidden downloader used by save/export/screenshot -->
+<a id="hidden-downloader" href="dataUrl" download="filename" style="display:none"></a>
 
 <div id="stats">
 </div>
@@ -721,10 +722,16 @@
     }
 
     function download(url, filename) {
-        $('#hidden-downloader')
+        var el = $('#hidden-downloader')
             .attr('href', url)
-            .attr('download', filename)
-            [0].click();
+            .attr('download', filename)[0];
+        el.click();
+        // Revoke blob URLs to avoid leaking object URLs
+        try {
+            if (typeof url === 'string' && url.indexOf('blob:') === 0) {
+                setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+            }
+        } catch (e) { /* ignore */ }
     }
 
 
