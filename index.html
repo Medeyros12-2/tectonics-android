@@ -91,7 +91,7 @@
     <script src="noncompiled/views/ProjectionViews.js"></script>
     <script src="noncompiled/views/RegressionTestViews.js"></script>
     <script src="noncompiled/views/ExperimentalViews.js"></script>
-    <!-- <script src="noncompiled/views/TestViews.js"></script> -->
+    <script src="noncompiled/views/TestViews.js"></script>
     <script src="noncompiled/views/View.js"></script>
 
     <link rel="manifest" href="manifest.json" />
@@ -103,7 +103,7 @@
             <i>right_panel_close</i>
         </button>
     </header>
-    <button id="screenshot" class="toolbary vertical small-text" v-if="isEnabled" v-on:click="capture" v-on:keyup.p="capture">
+    <button class="toolbary vertical small-text" id="screenshot" v-if="isEnabled" v-on:click="capture" v-on:keyup.p="capture">
         <i>screenshot_frame</i>
         Screenshot
     </button>
@@ -223,6 +223,7 @@
                 </div>
             </div>
             <div class="slider small">
+                <input type="range" v-model="resolution_level" orient="vertical" min="1" max="6" step="1">
                 <input type="range" v-model="resolution_level" min="1" max="6" step="1">
                 <span></span>
             </div>
@@ -246,6 +247,7 @@
                 </div>
             </div>
             <div class="slider small">
+                <input id="tilt" type="range" v-model="axial_tilt_degrees" orient="vertical" min="0" max="90" step="0.5">
                 <input id="tilt" type="range" v-model="axial_tilt_degrees" min="0" max="90" step="0.5">
                 <span></span>
             </div>
@@ -259,6 +261,7 @@
                 </div>
             </div>
             <div class="slider small">
+                <input id="day-length" type="range" v-model="log10_day_length" orient="vertical" min="4.45" max="7.5" step="0.01">
                 <input id="day-length" type="range" v-model="log10_day_length" min="4.45" max="7.5" step="0.01">
                 <span></span>
             </div>
@@ -272,6 +275,7 @@
                 </div>
             </div>
             <div class="slider small">
+                <input id="semi-major" type="range" v-model="log10_semi_major_axis" orient="vertical" min="8.5" max="14.1" step="0.1">
                 <input id="semi-major" type="range" v-model="log10_semi_major_axis" min="8.5" max="14.1" step="0.1">
                 <span></span>
             </div>
@@ -486,29 +490,16 @@
             var context = canvas.getContext('2d');
             context.drawImage(image, 0, 0);
             image.onload = function(){
-                // create canvas context from image after the image has loaded
-                var canvas = document.createElement('canvas');
                 canvas.width  = image.width;
                 canvas.height = image.height;
-                var context = canvas.getContext('2d');
-                context.drawImage(image,0,0); // draw now that size is known
-
+                context.drawImage(image,0,0); // Or at whatever offset you like
                 // generate crust from canvas context
                 var elevations = ImageImporter.get_elevations_from_canvas_context(context, sim.focus().grid);
                 CrustGenerator.get_crust_from_elevations(
-                    elevations,
-                    CrustGenerator.modern_earth_attribute_height_maps,
+                    elevations, 
+                    CrustGenerator.modern_earth_attribute_height_maps, 
                     sim.focus().lithosphere.total_crust
                 );
-
-                // invalidate cached memos and recalc plate segmentation to apply the imported heights,
-                // then force an immediate view update so the imported map persists.
-                var lith = sim.focus() && sim.focus().lithosphere;
-                if (lith) {
-                    try { lith.invalidate(); } catch (err) {}
-                    try { lith.resetPlates(); } catch (err) {}
-                }
-                try { view.update(sim); view.render(); } catch (err) {}
 
                 onSimLoadStop.fire();
             };
@@ -1009,7 +1000,7 @@
           {name: 'Crust Thickness', value: 'thickness', icon: 'line_weight'},
           {name: 'Plates', value: 'plates', icon: 'extension'},
         ],
-        vectorViewSelected: 'disabled',
+        vectorViewSelected: 'plate_velocity',
         vectorViewOptions: [
           { name: "No Arrows", value: "disabled", icon: "block" },
           { name: "Mantle Flow", value: "asthenosphere_velocity", icon: "heat" },
@@ -1165,10 +1156,10 @@
     var settingsVue = new Vue({
       el: '#tune-control',
       data: {
-        supercontinentBreakup : 0,
+        supercontinentBreakup : 1,
         seed                  : '',
         isSeedCopied          : 0,
-        resolution_level      : 6,
+        resolution_level      : 5,
         cell_count            : 0,
         axial_tilt_degrees    : 23.5,
         log10_day_length      : Math.log10(Units.DAY),
@@ -1270,13 +1261,13 @@
       }
     });
     
-    var worldVue = new Vue({
+    var settingsVue = new Vue({
       el: '#world-control',
       data: {
-        supercontinentBreakup : 0,
+        supercontinentBreakup : 1,
         seed                  : '',
         isSeedCopied          : 0,
-        resolution_level      : 6,
+        resolution_level      : 5,
         cell_count            : 0,
         axial_tilt_degrees    : 23.5,
         log10_day_length      : Math.log10(Units.DAY),
@@ -1443,6 +1434,5 @@
     // once everything is loaded, instruct the user how to start
     dialogVue.notify("click ▶ or press > to begin")
 </script>
-
 </body>
 </html>
