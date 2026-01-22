@@ -103,17 +103,17 @@
             <i>right_panel_close</i>
         </button>
     </header>
-    <button class="toolbary vertical small-text" id="screenshot" v-if="isEnabled" v-on:click="capture" v-on:keyup.p="capture">
+    <button id="screenshot_btn" class="toolbary vertical small-text" id="screenshot" v-if="isEnabled" v-on:click="capture" v-on:keyup.p="capture">
         <i>screenshot_frame</i>
         Screenshot
     </button>
     <div id="export" class="short-axis-group">
-        <button class="toolbary vertical small-text" data-toggle="collapse" data-target="#export-menu" aria-haspopup="true" aria-expanded="false">
+        <button id="export_btn" class="toolbary vertical small-text" data-toggle="collapse" data-target="#export-menu" aria-haspopup="true" aria-expanded="false">
             <i>upload</i>
             Export
         </button>
         <div id="export-menu" class="collapse">
-            <button class="toolbary vertical small-text" v-on:click="csv">
+            <button id="cvs_btn" class="toolbary vertical small-text" v-on:click="csv">
                 <i>csv</i>
                 CVS
             </button>
@@ -125,7 +125,7 @@
             Import
         </button>
         <div id="import-menu" class="collapse">
-            <button class="toolbary vertical small-text" v-on:click="loadImage()">
+            <button id="dem_btn" class="toolbary vertical small-text" v-on:click="loadImage()">
                 <i>altitude</i>
                 Heigh map
                 <span class="instructions">drag</span>
@@ -161,23 +161,23 @@
         <span class="instructions">F11</span>
     </button>
     <!-- SCALAR OPTIONS -->
-    <button class="toolbary vertical small-text" v-bind:class="{'active': ocean}" v-on:click="setOcean(!ocean? 1:0)">
+    <button id="water_btn" class="toolbary vertical small-text" v-bind:class="{'active': ocean}" v-on:click="setOcean(!ocean? 1:0)">
         <i>water_drop</i>
         Show water
     </button>
-    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': night}" v-on:click="setShadows(!night? 1:0)">
+    <button id="shadow_btn" class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': night}" v-on:click="setShadows(!night? 1:0)">
         <i>partly_cloudy_night</i>
         Show shadows
     </button>
-    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': snow}" v-on:click="setSnow(!snow? 1:0)">
+    <button id="snow_btn" class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': snow}" v-on:click="setSnow(!snow? 1:0)">
         <i>ac_unit</i>
         Show snow
     </button>
-    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': sediment}" v-on:click="setSediment(!sediment? 1:0)">
+    <button id="sediment_btn" class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': sediment}" v-on:click="setSediment(!sediment? 1:0)">
         <i>snowing</i>
         Show sediments
     </button>
-    <button class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': plant}" v-on:click="setPlant(!plant? 1:0)">
+    <button id="plant_btn" class="toolbary vertical small-text" v-if="isScalarViewSelected('satellite')" v-bind:class="{'active': plant}" v-on:click="setPlant(!plant? 1:0)">
         <i>nature</i>
         Show plants
     </button>
@@ -204,7 +204,7 @@
             <i>right_panel_close</i>
         </button>
     </header>
-    <button class="toolbary vertical small-text" v-bind:class="{'active': supercontinentBreakup}" v-on:click="setSupercontinentBreakup(!supercontinentBreakup? 1:0)">
+    <button id="breakup_btn" class="toolbary vertical small-text" v-bind:class="{'active': supercontinentBreakup}" v-on:click="setSupercontinentBreakup(!supercontinentBreakup? 1:0)">
         <i>broken_image</i>
         Supercontinent Breakup
     </button>
@@ -309,20 +309,20 @@
                         {{speeds[speed_i].name}}
                     </span>
                 </div>
-                <button class="toolbary vertical small-text" v-on:click="slower()">
+                <button id="speed_btn" class="toolbary vertical small-text" v-on:click="slower()">
                     <i>fast_rewind</i>
                     Speed-up
                 </button>
-                <button class="toolbary vertical small-text" v-on:click="faster()">
+                <button id="slow_btn" class="toolbary vertical small-text" v-on:click="faster()">
                     <i>fast_forward</i>
                     Speed-down
                 </button>
             </nav>
             <button class="extra round circle error">
-                <a v-on:click="togglePause()" v-if="paused">
+                <a id="play_btn" v-on:click="togglePause()" v-if="paused">
                     <i>play_arrow</i>
                 </a>
-                <a v-on:click="togglePause()" v-if="!paused">
+                <a id="play_btn" v-on:click="togglePause()" v-if="!paused">
                     <i>pause</i>
                 </a>
             </button>
