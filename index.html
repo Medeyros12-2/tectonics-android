@@ -318,13 +318,9 @@
                     Speed-down
                 </button>
             </nav>
-            <button class="extra round circle error">
-                <a id="play_btn" v-on:click="togglePause()" v-if="paused">
-                    <i>play_arrow</i>
-                </a>
-                <a id="play_btn" v-on:click="togglePause()" v-if="!paused">
-                    <i>pause</i>
-                </a>
+            <button id="play_btn" v-on:click="togglePause()" class="extra round circle error">
+                <i v-if="paused">play_arrow</i>
+                <i v-if="!paused">pause</i>
             </button>
         </nav>
     </div>
