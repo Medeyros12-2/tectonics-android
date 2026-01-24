@@ -59,175 +59,65 @@ In portrait orientations, it will expand from bottom right to bottom left.
 */
 .control-material {
   /* max height should not cause world to become obstructed */
-  max-height: 23.6%;
-  overflow-y: hidden;
-
-  /* max width on mobile */
-  max-width: 100%;
-  overflow-x: auto;
-
-  position: fixed;
-  bottom: 0;
-  right: 0;
+  display: none;
 }
 @media (pointer: fine), (pointer: none), (orientation: landscape) {
   .control-material {
-    /*
-        To prevent obstructing the view of the planet,
-        the content width should resize as necessary.
-        */
-    max-width: auto;
-    overflow-x: hidden;
+    display: none;
   }
 }
 @media (orientation: landscape) {
   .control-material {
-    /*
-        Because we do not wrap content, we run the risk of content running off the screen.
-        To prevent this, we set the height to not exceed the height of the window.
-        If necessary, the user may scroll vertically through the content.
-        */
-    max-height: 100%;
-    overflow-y: auto;
+    display: none;
   }
 }
 @media (pointer: fine), (pointer: none) {
   .control-material {
-    /*
-        If the user is on a desktop, they can resize the screen as needed
-        */
-    height: auto;
-    max-height: 100%;
-    overflow-y: auto;
+    display: none;
   }
 }
 
 
 .control {
-  /* bottom right corner */
-  position: fixed;
-  bottom: 0;
-  right: 0;
-
-  /* flex, wrap right to left, bottom to top*/
-  display: flex;
-  flex-flow: row-reverse nowrap;
-
-  /* max height should not cause world to become obstructed */
-  max-height: 23.6%;
-  overflow-y: hidden;
-
-  /* max width on mobile */
-  max-width: 100%;
-  overflow-x: auto;
+  display: none;
 }
 @media (pointer: fine), (pointer: none), (orientation: landscape) {
   .control {
-    /*
-        Content should progress from bottom right to top right, and should not wrap.
-        content should be aligned to the right side of the screen,
-        */
-    flex-flow: column-reverse nowrap;
-    align-items: flex-end;
-    /*
-        To prevent obstructing the view of the planet,
-        the content width should resize as necessary.
-        */
-    max-width: auto;
-    overflow-x: hidden;
+    display: none;
   }
 }
 @media (orientation: landscape) {
   .control {
-    /*
-        Because we do not wrap content, we run the risk of content running off the screen.
-        To prevent this, we set the height to not exceed the height of the window.
-        If necessary, the user may scroll vertically through the content.
-        */
-    max-height: 100%;
-    overflow-y: auto;
+    display: none;
   }
 }
 @media (pointer: fine), (pointer: none) {
   .control {
-    /*
-        If the user is on a desktop, they can resize the screen as needed
-        */
-    height: auto;
-    max-height: 100%;
-    overflow-y: auto;
+    display: none;
   }
 }
 
-/*
-Mobile phones require big buttons that are easy to press.
-Therefore, buttons icons are enlarged on small screens.
-This applies regardless of screen orientation.
-Text is also shrunk and placed below the icon to give a space saving square shape.
-
-If the users have the ability to select buttons with pixel perfect precision, they do not require big buttons.
-However desktop users still presumably want to maximize screenspace spent towards the planet.
-So we therefore reduce the size of buttons to allow for this.
-Our buttons then become composed of small icons next to large text.
-Since text consumes space horizontally, we will always want button groups to consume space vertically.
-This will be the case regardless of screen orientation.
-*/
 .btn {
-  /* we follow apple recommendations for button size */
-  min-width: 44px;
-  min-height: 44px;
-  /* text is shrunk and placed below the icon to give a space saving square shape */
-  font-size: 0.5rem !important;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  flex: 1 2 auto;
-  background-color: rgba(0,0,0,0);
+  display: none;
 }
 .btn img {
-  /* we follow google material recommendations for icon size */
-  width: 24px;
-  height: 24px;
+  display: none;
 }
 @media (pointer: fine), (pointer: none) {
   .btn {
-    /* cancel the height/width restrictions that are imposed on mobile */
-    min-width: auto;
-    min-height: auto;
-    /* text is enlarged and placed beside the icon to save vertical space */
-    font-size: 1rem !important;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: left;
-    padding: 0.2rem;
+    display: none;
   }
   .btn img {
-    width: 1rem;
-    height: 1rem;
-    margin: 0.2rem;
+    display: none;
   }
 }
 
-/*
-We also want to display hints to desktop users so they can learn shortcuts and hotkeys.
-To accomplish this we display "instructions" next to button text.
-These only appear when pointer precision indicates a desktop user.
-*/
 .instructions {
   display: none;
 }
 @media (pointer: fine), (pointer: none) {
   .instructions {
-    /* enable display */
-    display: flex;
-    /* small grey text */
-    color: grey;
-    font-style: italic;
-    font-size: 61%;
-    /* positioned in the corner */
-    margin-left: auto;
-    margin-bottom: auto;
-    padding-left: 0.3rem;
+    display: none;
   }
 }
 
@@ -239,9 +129,7 @@ This is only meant to provide an override for special cases
 where we know the content is short enough not to require considering screen orientation.
 */
 .horizontal-axis-group {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-evenly;
+  display: none;
 }
 /*
 "vertical-axis-group" behaves similarly to bootstrap's .btn-group.
@@ -251,9 +139,7 @@ This is only meant to provide an override for special cases
 where we know the content is short enough not to require considering screen orientation.
 */
 .vertical-axis-group {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-evenly;
+  display: none;
 }
 
 /*
@@ -269,112 +155,69 @@ Since one of our core design principles is to prevent obstruction of the main fo
  especially if the component should always remain visible for ease of use.
 */
 .short-axis-group {
-  /* flex, wrap right to left, bottom to top*/
-  display: flex;
-  flex-flow: row-reverse nowrap;
-  align-items: flex-end;
+  display: none;
 }
 .short-axis-group .btn + .btn,
 .short-axis-group .btn + .short-axis-group,
 .short-axis-group .short-axis-group + .btn,
 .short-axis-group .short-axis-group + .short-axis-group {
-  margin-right: 0;
+  display: none;
 }
 .short-axis-group .btn,
 .short-axis-group .short-axis-group .btn {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
+  display: none;
 }
 .short-axis-group .btn:not(:last-child):not(.dropdown-toggle),
 .short-axis-group .short-axis-group:not(:last-child) .btn {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
+  display: none;
 }
 .short-axis-group .btn:not(:first-child),
 .short-axis-group .short-axis-group:not(:first-child) > .btn {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  display: none;
 }
 @media (pointer: fine), (pointer: none), (orientation: landscape) {
   .short-axis-group {
-    /*
-        We want everything within a button group to be consistently sized,
-        so we set all flexbox properties to "stretch".
-        */
-    display: flex;
-    flex-flow: column-reverse nowrap;
-    align-items: stretch;
+    display: none;
   }
 
-  /*
-    We copy paste most of the styling for Bootstrap's short-axis-group-vertical
-     in order to style short-axis-group as short-axis-group-vertical
-    */
   .short-axis-group .btn + .btn,
   .short-axis-group .btn + .short-axis-group,
   .short-axis-group .short-axis-group + .btn,
   .short-axis-group .short-axis-group + .short-axis-group {
-    margin-left: 0;
+    display: none;
   }
   .short-axis-group .btn,
   .short-axis-group .short-axis-group .btn {
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+    display: none;
   }
 
   .short-axis-group .btn:not(:last-child):not(.dropdown-toggle),
   .short-axis-group .short-axis-group:not(:last-child) .btn {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    display: none;
   }
 
   .short-axis-group .btn:not(:first-child),
   .short-axis-group .short-axis-group:not(:first-child) > .btn {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
+    display: none;
   }
 }
 
-/*
-".long-axis-group" behaves similarly to bootstrap's .btn-group,
- however it switches between vertical and horizontal axes dependant on screen orientation.
-It picks whichever axis is longest at any given time:
-In portrait mode, it assumes a horizontal layout.
-In horizontal mode, it assumes a vertical layout.
-"Long axis" will always expand towards the main focus of the screen (in our case, the planet).
-Since one of our core design principles is to prevent obstruction of the main focus,
- .long-axis-group should be used sparingly.
-Use it only when you can guarantee the number of components you're dealing with is small.
-*/
 .long-axis-group {
-  /*
-    We want everything within a button group to be consistently sized,
-    so we set all flexbox properties to "stretch".
-    */
-  display: flex;
-  flex-flow: column-reverse nowrap;
+  display: none;
 }
 .long-axis-group .btn + .btn,
 .long-axis-group .btn + .long-axis-group,
 .long-axis-group .long-axis-group + .btn,
 .long-axis-group .long-axis-group + .long-axis-group {
-  margin-left: 0;
+  display: none;
 }
 .long-axis-group .btn,
 .long-axis-group .long-axis-group .btn {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
+  display: none;
 }
 .long-axis-group .btn:not(:last-child):not(.dropdown-toggle),
 .long-axis-group .long-axis-group:not(:last-child) .btn {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  display: none;
 }
 .long-axis-group .btn:not(:first-child),
 .long-axis-group .long-axis-group:not(:first-child) > .btn {
@@ -383,41 +226,30 @@ Use it only when you can guarantee the number of components you're dealing with 
 }
 @media (pointer: fine), (pointer: none), (orientation: landscape) {
   .long-axis-group {
-    /* flex, wrap right to left, bottom to top*/
-    display: flex;
-    flex-flow: row-reverse nowrap;
+    display: none;
   }
   .long-axis-group .btn + .btn,
   .long-axis-group .btn + .long-axis-group,
   .long-axis-group .long-axis-group + .btn,
   .long-axis-group .long-axis-group + .long-axis-group {
-    margin-right: 0;
+    display: none;
   }
   .long-axis-group .btn,
   .long-axis-group .long-axis-group .btn {
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+    display: none;
   }
   .long-axis-group .btn:not(:last-child):not(.dropdown-toggle),
   .long-axis-group .long-axis-group:not(:last-child) .btn {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
+    display: none;
   }
   .long-axis-group .btn:not(:first-child),
   .long-axis-group .long-axis-group:not(:first-child) > .btn {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    display: none;
   }
 }
 
-/*
-is-long-axis-vertical only displays when the vertical axis is longest
-is-long-axis-horizontal only displays when the horizontal axis is longest
-*/
 .is-long-axis-vertical {
-  display: inherit;
+  display: none;
 }
 .is-long-axis-horizontal {
   display: none;
@@ -427,7 +259,7 @@ is-long-axis-horizontal only displays when the horizontal axis is longest
     display: none;
   }
   .is-long-axis-horizontal {
-    display: inherit;
+    display: none;
   }
 }
 
@@ -439,11 +271,11 @@ is-short-axis-horizontal only displays when the horizontal axis is shortest
   display: none;
 }
 .is-short-axis-horizontal {
-  display: inherit;
+  display: none;
 }
 @media (pointer: fine), (pointer: none), (orientation: landscape) {
   .is-short-axis-vertical {
-    display: inherit;
+    display: none;
   }
   .is-short-axis-horizontal {
     display: none;
@@ -455,138 +287,73 @@ remaining screen-specific content is ordered by position on the page
 */
 
 #header {
-  /* top left corner, do not spill over the screen */
-  position: fixed;
-  top: 2vw;
-  left: 4vw;
-  right: 2vw;
-
-  /* extend content to the left, wrap when you run out of screen */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: none;
 }
 #header h1 {
-  /* set margins to 0 */
-  margin: 0;
-  /* but set right margin to something just in case the navigation menu doesn't spill */
-  margin-right: 2vw;
+  display: none;
 }
 #header a {
-  /*we follow apple recommendations for height of touchable components*/
-  font-size: 44px;
-  font-weight: bold;
-
-  /* standard header colors, no underscore */
-  color: white;
-  text-decoration: none;
+  display: none;
 }
 #header a:hover {
-  /* no underscore on highlight */
-  text-decoration: none;
+  display: none;
 }
 @media (orientation: landscape) {
   #header {
-    /* don't spill over in landscape, just scroll */
-    flex-wrap: nowrap;
+    display: none;
   }
 }
 @media (pointer: fine), (pointer: none) {
   #header {
-    /* always spill over on desktop, override the landscape setting */
-    flex-wrap: wrap;
+    display: none;
   }
   #header h1 {
-    /* header is constant size on desktops */
-    font-size: 3rem;
-    /* navigation menu always wraps onto the next line on desktops */
-    width: 100%;
+    display: none;
   }
 }
 
 #navigation {
-  /* extend to the left, scroll when you run out of screen */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  /* navigation menu indentation */
-  margin-left: 3vw;
+  display: none;
 }
 #navigation a {
-  /*we follow apple recommendations for height of touchable components*/
-  font-size: 22px;
-  height: 44px;
-  /* navigation menu items should be spaced apart */
-  margin-left: 4vw;
-
-  /* standard header colors, no underscore */
-  color: white;
-  text-decoration: none;
+  display: none;
 }
 #navigation a:hover {
-  /* standard header colors, no underscore */
-  color: grey;
-  text-decoration: none;
+  display: none;
 }
 @media (pointer: fine), (pointer: none) {
   #navigation {
-    /* ensure scrollbar is disabled on desktop because it's tacky */
-    overflow-x: hidden;
+   display: none;
   }
   #navigation a {
-    /* navigation menu is smaller on desktops */
-    font-size: 1rem;
-    /* navigation menu indentation is constant on desktops */
-    margin-left: 1rem;
-    margin-left: 1rem;
+    display: none;
   }
 }
 
 .slider-label {
-  font-size: 0.75rem;
-  line-height: 1.5;
-  align-items: center;
-  justify-content: space-between;
-  background-color: rgba(0,0,0,0);
+  display: none;
 }
 .slider-label img {
-  width: 24px;
-  height: 24px;
+  display: none;
 }
 @media (pointer: fine), (pointer: none) {
   .slider-label {
-    /* cancel the height/width restrictions that are imposed on mobile */
-    min-width: auto;
-    min-height: auto;
-    /* text is enlarged and placed beside the icon to save vertical space */
-    font-size: 1rem !important;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    padding: 0.2rem;
+    display: none;
   }
   .slider-label img {
-    width: 1rem;
-    height: 1rem;
-    margin: 0.5rem;
+    display: none;
   }
   .slider-label .vertical-axis-group {
-    align-items: flex-start;
+    display: none;
   }
 }
 
 input[type="range"].slider-vertical {
-  /*we follow apple recommendations for width of touchable components*/
-  width: 44px;
-  height: 88px;
-  -webkit-appearance: slider-vertical;
-  writing-mode: bt-lr;
+  display: none;
 }
 @media (pointer: fine), (pointer: none) {
-  /* when pointer precision is better than a touchscreen, we can make sliders smaller */
   input[type="range"].slider-vertical {
-    width: 20px;
+    display: none;
   }
 }
 
@@ -610,11 +377,7 @@ CLASS BASED STYLING
  that the application is loading something.
 */
 .loading-dialog {
-  position: fixed;
-  top: 43%;
-  left: 43%;
-  width: 15%;
-  text-align: center;
+  display: none;
 }
 .loading-dialog h2 {
   text-align: center;
@@ -627,20 +390,16 @@ They appear at the bottom of the screen and are inspired by
  the notifications that appear in Skyrim to indicate things like encumbrance.
 */
 .notifications-dialog {
-  position: fixed;
-  bottom: 8.4%;
-  left: 20%;
-  width: 61%;
-  text-align: center;
+  display: none;
 }
 .notifications-dialog h3 {
-  text-align: center;
+  display: none;
 }
 .notifications-dialog .fade-enter-active, .fade-leave-active {
-  transition: opacity 3s;
+  display: none;
 }
 .notifications-dialog .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+  display: none;
 }
 
 /*
@@ -650,10 +409,7 @@ They appear as a white box in the center of the screen,
  and are inspired by Windows dialog boxes.
 */
 .dialog {
-  color: black;
-  background-color: white;
-  padding: 3.44%;
-  border-radius: 1em;
+  display: none;
 }
 
 /*
@@ -670,12 +426,10 @@ This may be used to avoid confusing the user,
 /* set "overflow: hidden" to hide the scrollbar ; */
 
 .form-control {
-  height: auto;
+  display: none;
 }
 .label {
-  background-color: rgba(0,0,0,0);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.2rem;
+  display: none;
 }
 
 
@@ -688,17 +442,15 @@ We give special attention to styling the time warp control,
 because it features so prominently
 */
 #speed-control .input-group {
-  flex-flow: row nowrap;
-  width: 190px;
+  display: none;
 }
 #speed-control .input-group-prepend,
 #speed-control .input-group-text {
-  flex: 2 1 auto;
+  display: none;
 }
 
 #speed-display {
-  width: 100px;
-  min-width: 100px;
+  display: none;
 }
 
 /*
@@ -706,26 +458,19 @@ because it features so prominently
 It occurs in the bottom right corner.
 */
 #chart {
-  width: 300px;
-  /* bottom right corner */
-  position: fixed;
-  bottom: 1em;
-  right: 1em;
+  display: none;
 }
 #chart canvas {
-  padding: 1em;
+  display: none;
 }
 #chart .stat {
-  float: right;
-  margin: 1em;
+  display: none;
 }
 #chart .stat .name {
-  margin: 1em;
-  text-align: left;
+  display: none;
 }
 #chart .stat .value {
-  margin: 1em;
-  text-align: right;
+  display: none;
 }
 
 /*
@@ -735,10 +480,7 @@ It appears in the bottom left corner, since that's the only corner that
  hasn't been taken up yet.
 */
 #stats {
-  /* bottom right corner */
-  position: fixed;
-  top: 1em;
-  left: 1em;
+  display: none;
 }
 
 /*
@@ -755,14 +497,7 @@ It  has no styling and is never meant to be seen.
  that he can drag and drop files into the application.
 */
 #drop-dialog {
-  position: absolute;
-  top: 23%;
-  left: 23%;
-  bottom: 23%;
-  right: 23%;
-  padding: 5.57%;
-  text-align: center;
-  border-style: dashed;
+  display: none;
 }
 
 .unselectable {
